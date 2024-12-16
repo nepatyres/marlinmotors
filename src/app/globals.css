@@ -2,20 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: "Unitext Regular";
+  src: url("https://db.onlinewebfonts.com/t/8e38c9cc931e43e959d8341ad03741ab.ttf")format("truetype")
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@font-face {
+  font-family: 'Ubuntu-light';
+  src: url('/fonts/Ubuntu/Ubuntu-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Ubuntu-bold';
+  src: url('/fonts/Ubuntu/Ubuntu-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Gruppo';
+  src: url('/fonts/Gruppo/Gruppo-Regular.ttf') format('truetype');
+}
+
+.flip:hover .inner {
+  transform: rotateY(180deg);
+}
+
+.packages-main {
+  scrollbar-width: thin;
+  scrollbar-color: #333 transparent;
+}
+
+.packages-main::-webkit-scrollbar-thumb {
+  background-color: #02161d;
+  border-radius: 15px;
+}
+
+html {
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #121212;
+}
+
+* {
+  scrollbar-color: #333 #121212;
+}
+
+.intro {
+  position: absolute;
+  animation: appear 1.5s ease forwards;
+  transform: translateY(0);
+}
+
+@keyframes appear {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

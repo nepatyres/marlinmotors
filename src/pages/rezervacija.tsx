@@ -1,8 +1,9 @@
 'use client';
-import HomePage from "../pages/homePage";
 import React, { useEffect, useState } from "react";
+import "../app/globals.css";
+import Reservation from "@/sections/reservation";
 
-export default function Home() {
+export default function Rezervacija() {
 
   useEffect(() => {
     (
@@ -15,7 +16,7 @@ export default function Home() {
 
   return (
     <main>
-      <HomePage />
+      <Reservation />
     </main>
   );
 }
