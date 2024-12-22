@@ -1,17 +1,17 @@
 import EmailForm from '@/components/emailForm';
-import { address, schedule } from '@/constants';
+import { address, schedule, scheduleRu } from '@/constants';
 import React from 'react';
 
-function Footer() {
+function Footer({language}: any) {
     return (
         <div className="bg-black h-auto" id='scrollToFooter'>
             <div className="flex-col flex items-center w-[90%] sm:w-[80%] m-auto lg:flex-row lg:justify-between">
                 <div className="w-full lg:w-[50%]">
                     <div className="font-ubuntuL text-white w-full">
-                        <span className="flex justify-center mt-[50px] mb-2.5 font-gruppo font-semibold text-white/90 tracking-wider text-[30px]">MUS RASITE</span>
+                        <span className={`flex justify-center mt-[50px] mb-2.5 text-white/90 tracking-wider text-[30px] ${language ? 'font-gruppo font-semibold' : 'ubuntuL font-medium'}`}>{language ? 'MUS RASITE' : 'НАС НАЙДЕТЕ'}</span>
                         <div className="flex justify-between lg:flex-row mb-2.5 gap-[5px] font-ubuntuL w-full text-[20px] flex-col">
                             <p>{address}</p>
-                            <p>{schedule}</p>
+                            <p>{language ? schedule : scheduleRu}</p>
                         </div>
                     </div>
                     <div>
@@ -23,7 +23,7 @@ function Footer() {
                         ></iframe>
                     </div>
                 </div>
-                <EmailForm />
+                <EmailForm language={language}/>
             </div>
             <div className='flex justify-center flex-col w-full text-center items-center m-0 bottom-0 left-0 pt-14 pb-2'>
                 {/* <span className='text-[#ffffffb3] font-ubuntuL'>Designed and developed by <a className='no-underline font-ubuntuL text-white/70' target='_blank' rel="noreferrer" href='https://julijus.com'>Julijus</a></span> */}

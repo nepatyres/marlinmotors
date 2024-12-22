@@ -5,24 +5,33 @@ export const selection = [
         options: [
             {
                 name: 'Express Plovimas',
+                url: '/images/carWashing.png',
                 price: '15.00',
                 description: 'Greitas automobilio išorės plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.'
             },
             {
                 name: 'Detalus Plovimas',
+                url: '/images/carWashing.png',
                 price: '30.00',
                 description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.'
             },
         ],
         toggle: [
-            // {
-            //     name: 'Variklio plovimas',
-            //     price: '13.00'
-            // },
             {
-                name: 'Padangu vaskavimas',
+                name: 'Kebulo vaskavimas',
+                url: '/images/carWaxing.png',
                 price: '13.00'
             },
+            // {
+            //     name: 'Langų hidrofobinė danga',
+            //     url: '/images/windowsAnti.png',
+            //     price: '13.00'
+            // },
+            // {
+            //     name: 'Padangu vaskavimas',
+            //     url: '/images/tiresWaxing.jpg',
+            //     price: '13.00'
+            // },
 
         ]
     },
@@ -32,28 +41,43 @@ export const selection = [
         options: [
             {
                 name: 'Sausas valymas',
+                url: '/images/carCleaning.png',
                 price: '35.00',
                 description: 'Salono paviršių valymas, pašalinant dulkes, trupinius ir smulkius nešvarumus. Greitas ir paprastas būdas atnaujinti automobilio vidų.'
             },
             {
                 name: 'Cheminis valymas',
+                url: '/images/carCleaning.png',
                 price: '140.00',
                 description: 'Kruopštus salono valymas, naudojant specialias chemines priemones, kurios pašalina dėmes, kvapus ir giluminius nešvarumus nuo sėdynių ir kitų paviršių.'
             },
             {
                 name: 'Detalus cheminis valymas',
+                url: '/images/carCleaning.png',
                 price: '180.00',
                 description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą.'
             },
         ],
         toggle: [
             {
-                name: 'Lubu valymas',
+                name: 'Sedines',
+                url: '/images/seatsCleaning.png',
+                price: '25.00'
+            },
+            {
+                name: 'Grindų danga',
+                url: '/images/floorCleaning.png',
+                price: '25.00'
+            },
+            {
+                name: 'Lubos',
+                url: '/images/ceilingWash.png',
                 price: '13.00'
             },
             {
-                name: 'Tik bagazines valymas',
-                price: '13.00'
+                name: 'Bagazine',
+                url: '/images/trunkCleaning.png',
+                price: '10.00'
             }
         ]
     },
@@ -63,27 +87,54 @@ export const selection = [
         options: [
             {
                 name: '1 etapo poliravimas',
+                url: '/images/carPolishing.png',
                 price: '35.00',
                 description: 'Salono paviršių valymas, pašalinant dulkes, trupinius ir smulkius nešvarumus. Greitas ir paprastas būdas atnaujinti automobilio vidų.'
             },
             {
                 name: '2 etapu poliravimas',
+                url: '/images/carPolishing.png',
                 price: '140.00',
                 description: 'Kruopštus salono valymas, naudojant specialias chemines priemones, kurios pašalina dėmes, kvapus ir giluminius nešvarumus nuo sėdynių ir kitų paviršių.'
             },
             {
                 name: '3 etapu poliravimas',
+                url: '/images/carPolishing.png',
                 price: '250.00',
                 description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą.'
             },
         ],
         toggle: [
+            // {
+            //     name: 'Žibintų poliravimas',
+            //     url: '/images/headlightPolishing.png',
+            //     price: '13.00'
+            // },
             {
                 name: 'Nano-keraminę dangą',
+                url: '/images/wax.png',
                 price: '150.00'
             }
         ]
     }
+]
+
+export const moreToggles = [
+    {
+        name: 'Žibintų poliravimas',
+        url: '/images/headlightPolishing.png',
+        price: '13.00'
+    },
+    {
+        name: 'Langų hidrofobinė danga',
+        url: '/images/windowsAnti.png',
+        price: '14.00'
+    },
+    {
+        name: 'Padangu vaskavimas',
+        url: '/images/tiresWaxing.jpg',
+        price: '15.00'
+    },
 ]
 
 

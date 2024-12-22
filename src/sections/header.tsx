@@ -4,7 +4,7 @@ import { phoneSvg, togglerSvg } from '@/components/svg';
 import Image from 'next/image'
 import Navbar from '@/components/navbar';
 
-export default function Header() {
+export default function Header({ language, setLanguage }) {
     const [navbarVisible, setNavbarVisible] = useState(false);
     const [scrolling, setScrolling] = useState(false);
 
@@ -48,12 +48,12 @@ export default function Header() {
             />
             <div className='intro xl:bottom-[5%] absolute inset-0 flex flex-col items-center justify-center'>
                 <h1 className="font-gruppo text-[25px] sm:text-[40px] lg:text-[55px] font-extrabold text-white tracking-wider mb-0">Aesthetic Detail Studio</h1>
-                <h2 className="lg:mt-[-15px] font-light text-[22px] lg:text-[28px] text-white/70 flex-wrap font-gruppo text-center mb-[20px]">Mes turime viską Jūsų automobilio grožiui.</h2>
+                <h2 className={`lg:mt-[-15px] font-light text-[22px] lg:text-[28px] text-white/70 flex-wrap text-center mb-[20px] ${language ? 'font-gruppo' : 'font-ubuntuL'}`}>{language ? 'Mes turime viską Jūsų automobilio grožiui.' : 'У нас есть все для красоты вашего автомобиля'}</h2>
                 <a href={'/rezervacija'} className="font-ubuntuL cursor-pointer font-thin rounded-[5px] mt-3 lg:mt-5 text-[18px] xl:text-[22px] border border-[#c1d8f080] bg-transparent text-white py-2 px-8 transition-colors duration-500 hover:bg-[#c1d8f01a]">
-                    Rezervacija
+                    {language ? 'Rezervacija' : 'Резервация'}
                 </a>
             </div>
-            <Navbar />
+            <Navbar language={language} setLanguage={setLanguage} />
 
         </div>
     );

@@ -7,7 +7,8 @@ import Services from "@/sections/services";
 import React, { useEffect, useState } from "react";
 
 export default function HomePage() {
-
+  const [isSwitchChecked, setIsSwitchChecked] = useState(true);
+  const [language, setLanguage] = useState(true);
   useEffect(() => {
     (
       async () => {
@@ -17,18 +18,17 @@ export default function HomePage() {
     )()
   }, [])
 
-  const [isSwitchChecked, setIsSwitchChecked] = useState(true);
   const handleSwitchChange = () => {
     setIsSwitchChecked((prev) => !prev);
   };
 
   return (
     <main>
-      <Header />
-      <Services />
+      <Header language={language} setLanguage={setLanguage} />
+      <Services language={language} />
       {/* <Prices /> */}
-      <AboutUs />
-      <Footer />
+      <AboutUs language={language}/>
+      <Footer language={language}/>
     </main>
   );
 }

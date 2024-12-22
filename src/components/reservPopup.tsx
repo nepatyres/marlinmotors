@@ -22,6 +22,17 @@ export default function ReservPopup({ setReservPopup }) {
                             <button type="submit"
                                 className="w-80 mt-10 self-start h-10 font-bold border-none rounded-md text-base cursor-pointer bg-slate-200 text-[#182f3d] hover:bg-slate-300 transition-colors duration-500">Rezervuoti</button>
                         </form>
+                        <div className="mt-6 w-full overflow-x-auto">
+                            <iframe
+                                src="https://calendar.google.com/calendar/embed?src=marlinmotorslt%40gmail.com&ctz=Europe%2FVilnius"
+                                style={{ border: 0 }}
+                                width="400"
+                                height="300"
+                                frameBorder="0"
+                                scrolling="no"
+                                className="rounded-lg"
+                            ></iframe>
+                        </div>
                     </div >
                 </div >
             </div >

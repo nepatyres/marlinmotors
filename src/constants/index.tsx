@@ -1,5 +1,8 @@
 //FOR NAVBAR SECTION
-export const navbar = [{ name: 'Paslaugos', scrollT: 'scrollToServices' }, { name: 'Apie Mus', scrollT: 'scrollToAboutUs' }];
+export const navbar = [
+    { nameLt: 'Paslaugos', nameRu: 'Наши Услуги', scrollT: 'scrollToServices' },
+    { nameLt: 'Apie Mus', nameRu: 'О нас', scrollT: 'scrollToAboutUs' }
+];
 
 export const scrollNav = [{ function: 'scrollToServices', onClick: 'scrollToServices' }]
 
@@ -8,28 +11,35 @@ export const scrollNav = [{ function: 'scrollToServices', onClick: 'scrollToServ
 export const services = [
     {
         front: 'Kėbulo plovimas',
+        frontRu: 'Мойка кузова',
         url: '/images/carWashing.png'
     },
     {
         front: 'Salono valymas',
+        frontRu: 'Чистка салона',
         url: '/images/carCleaning.png'
     },
     {
         front: 'Kėbulo poliravimas',
+        frontRu: 'Полировка кузова',
         url: '/images/carPolishing.png'
     },
     {
         front: 'Nano-keraminę dangą',
+        frontRu: 'Нанокерамическое покрытие',
         url: '/images/wax.png'
     },
     {
         front: 'Apsauginės PPF plėvelės',
+        frontRu: 'Оклейка PPF пленкой',
         url: '/images/ppf.png'
     },
 ];
 
 
 //FOR ABOUTUS SECTION
+export const aboutUsSpan = 'Marlin Motors – vieta, kur rūpinamės Jūsų automobilio grožiu ir ilgaamžiškumu. Esame pasirengę pasirūpinti kiekvienu transporto tipu – nuo lengvųjų automobilių iki jūrų transporto. Siūlome aukščiausios kokybės paslaugas, kurios ne tik išryškina Jūsų transporto priemonės estetiką, bet ir užtikrina ilgalaikę transporto apsaugą.'
+export const aboutUsSpanRu = 'Marlin Motors — это место, где мы заботимся о красоте и долговечности вашего транспорта. Мы готовы взять на себя уход за любым видом транспорта — от легковых автомобилей до морских судов. Мы предлагаем услуги высочайшего качества, которые не только улучшают внешний вид вашего транспортного средства, но и обеспечивают его долгосрочную защиту.'
 export const aboutUs = [
     {
         span: 'Inovacijos ir aistra',
@@ -62,4 +72,5 @@ export const aboutUs = [
 //FOR FOOTER SECTION
 export const address = 'Kaštonų g. 50, 92206 Klaipėda';
 export const schedule = 'I-V 10:00-19:00, VI-VII Uždaryta';
+export const scheduleRu = 'I-V 10:00-19:00, VI-VII Закрыто';
 
