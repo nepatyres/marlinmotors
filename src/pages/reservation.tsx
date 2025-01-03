@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import "../app/globals.css";
 import Reservation from "@/sections/reservation";
+import { LanguageProvider } from "@/context/LanguageContext";
 
-export default function Rezervacija() {
+export default function ReservationPage() {
 
   useEffect(() => {
     (
@@ -16,7 +17,9 @@ export default function Rezervacija() {
 
   return (
     <main>
-      <Reservation />
+      <LanguageProvider>
+        <Reservation />
+      </LanguageProvider>
     </main>
   );
 }

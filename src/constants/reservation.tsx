@@ -1,117 +1,142 @@
 export const selection = [
     {
         name: 'exterior',
-        span: 'Kebulo Plovimas',
+        span: 'Kėbulo plovimas',
+        spanRu: 'Мойка кузова',
         options: [
             {
-                name: 'Express Plovimas',
+                name: 'Express plovimas',
+                nameRu: 'Экспресс мойка',
                 url: '/images/carWashing.png',
                 price: '15.00',
-                description: 'Greitas automobilio išorės plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.'
+                description: 'Greitas kėbulo plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.',
+                descriptionRu: 'Быстрая мойка кузова, устраняющая основные загрязнения. Отличный выбор, когда нужен быстрый результат.'
             },
             {
-                name: 'Detalus Plovimas',
+                name: 'Detalus plovimas',
+                nameRu: 'Детальная мойка',
                 url: '/images/carWashing.png',
                 price: '30.00',
-                description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.'
+                description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
+                descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
             },
         ],
         toggle: [
             {
-                name: 'Kebulo vaskavimas',
+                name: 'Kėbulo vaškavimas',
+                nameRu: 'Вощение кузова',
                 url: '/images/carWaxing.png',
                 price: '13.00'
-            },
-            // {
-            //     name: 'Langų hidrofobinė danga',
-            //     url: '/images/windowsAnti.png',
-            //     price: '13.00'
-            // },
-            // {
-            //     name: 'Padangu vaskavimas',
-            //     url: '/images/tiresWaxing.jpg',
-            //     price: '13.00'
-            // },
-
+            }
         ]
     },
     {
         name: 'interior',
-        span: 'Salono Valymas',
+        span: 'Salono valymas',
+        spanRu: 'Чистка салона',
         options: [
             {
                 name: 'Sausas valymas',
+                nameRu: 'Сухая чистка',
                 url: '/images/carCleaning.png',
                 price: '35.00',
-                description: 'Salono paviršių valymas, pašalinant dulkes, trupinius ir smulkius nešvarumus. Greitas ir paprastas būdas atnaujinti automobilio vidų.'
+                description: 'Salono paviršių valymas, pašalinant dulkes, trupinius ir smulkius nešvarumus. Greitas ir paprastas būdas atnaujinti automobilio vidų.',
+                descriptionRu: 'Чистка поверхностей салона, удаление пыли, крошек и мелких загрязнений. Быстрый и простой способ обновить интерьер автомобиля.'
             },
             {
                 name: 'Cheminis valymas',
+                nameRu: 'Химчистка',
                 url: '/images/carCleaning.png',
-                price: '140.00',
-                description: 'Kruopštus salono valymas, naudojant specialias chemines priemones, kurios pašalina dėmes, kvapus ir giluminius nešvarumus nuo sėdynių ir kitų paviršių.'
+                price: '100.00',
+                description: 'Kruopštus salono valymas, naudojant specialias chemines priemones, kurios pašalina dėmes, kvapus ir giluminius nešvarumus nuo sėdynių ir kitų paviršių.',
+                descriptionRu: 'Тщательная чистка салона с использованием специальных химических средств, которые удаляют пятна, запахи и глубинные загрязнения с сидений и других поверхностей.'
             },
             {
                 name: 'Detalus cheminis valymas',
+                nameRu: 'Детальная химчистка',
                 url: '/images/carCleaning.png',
-                price: '180.00',
-                description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą.'
+                price: '140.00',
+                description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą.',
+                descriptionRu: 'Полная чистка салона, включая труднодоступные места. Включает глубокое удаление пятен, застарелых загрязнений и запахов, а также обновление пластиковых и текстильных элементов.'
             },
         ],
         toggle: [
             {
-                name: 'Sedines',
+                name: 'Medžiaginių sėdynių cheminis siurbimas',
+                nameRu: 'Химичистка тканевых сидений',
                 url: '/images/seatsCleaning.png',
-                price: '25.00'
+                price: '30.00'
+            },
+            // {
+            //     name: 'Odinių sėdynių kondicionavimas',
+            //     nameRu: 'Кондиционирование кожаных сидений',
+            //     url: '/images/seatsCleaning.png',
+            //     price: '25.00'
+            // },
+            {
+                name: 'Diržų garinis valymas',
+                nameRu: 'Паровая чистка ремней',
+                url: '/images/seatsCleaning.png',
+                price: '20.00'
             },
             {
-                name: 'Grindų danga',
+                name: 'Grindų dangos cheminis siurbimas',
+                nameRu: 'Химчистка напольного покрытия',
                 url: '/images/floorCleaning.png',
                 price: '25.00'
             },
             {
-                name: 'Lubos',
+                name: 'Lubų valymas',
+                nameRu: 'Чистка потолка',
                 url: '/images/ceilingWash.png',
-                price: '13.00'
+                price: '15.00'
             },
             {
-                name: 'Bagazine',
+                name: 'Bagažinės cheminis siurbimas',
+                nameRu: 'Химчистка багажника',
                 url: '/images/trunkCleaning.png',
-                price: '10.00'
+                price: '20.00'
             }
         ]
     },
     {
         name: 'polishing',
         span: 'Kėbulo poliravimas ir Nano-keraminę dangą',
+        spanRu: 'Полировка кузова и нано-керамическое покрытие',
         options: [
             {
-                name: '1 etapo poliravimas',
+                name: 'vieno etapo poliravimas',
+                nameRu: 'Полировка одного этапа',
                 url: '/images/carPolishing.png',
-                price: '35.00',
-                description: 'Salono paviršių valymas, pašalinant dulkes, trupinius ir smulkius nešvarumus. Greitas ir paprastas būdas atnaujinti automobilio vidų.'
+                price: '100.00',
+                description: 'Pašalinami smulkus įbrėžimai ir atgaivina automobilio spalvą. Rekomenduojama apynaujiems ar anksčiau poliruotiems automobiliams bei prieš pardavimą.',
+                descriptionRu: 'Удаляются мелкие царапины и восстанавливается цвет автомобиля. Рекомендуется для почти новых или ранее полированных автомобилей, а также перед продажей.'
             },
             {
-                name: '2 etapu poliravimas',
+                name: 'dveju etapu poliravimas',
                 url: '/images/carPolishing.png',
                 price: '140.00',
-                description: 'Kruopštus salono valymas, naudojant specialias chemines priemones, kurios pašalina dėmes, kvapus ir giluminius nešvarumus nuo sėdynių ir kitų paviršių.'
+                description: 'Pašalinami vidutinio gylio įbrėžimai, oksidavęs lakas, lengvos organinės ir mineralinės dėmės. Rekomenduojama seniai arba niekada nepoliruotiems automobiliams.',
+                descriptionRu: 'Удаляются среднеглубокие царапины, окислившийся лак, легкие органические и минеральные пятна. Рекомендуется для автомобилей, которые давно или никогда не полировались.'
             },
             {
-                name: '3 etapu poliravimas',
+                name: 'trieju etapu poliravimas',
                 url: '/images/carPolishing.png',
                 price: '250.00',
-                description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą.'
+                description: 'Pašalinami gilūs įbrėžimai, suteikia veidrodinį blizgesį. Rekomenduojama norint pasiekti idealią išvaizdą arba automobiliams turintiems daug defektų.',
+                descriptionRu: 'Удаляются глубокие царапины, придаётся зеркальный блеск. Рекомендуется для достижения идеального внешнего вида или для автомобилей с большим количеством дефектов.'
             },
         ],
         toggle: [
-            // {
-            //     name: 'Žibintų poliravimas',
-            //     url: '/images/headlightPolishing.png',
-            //     price: '13.00'
-            // },
+            {
+                name: 'Stiklų Poliravimas',
+                nameRu: 'Полировка стекол',
+                url: '/images/wax.png',
+                price: '30.00'
+            },
             {
                 name: 'Nano-keraminę dangą',
+                nameRu: 'Нано-керамическое покрытие',
                 url: '/images/wax.png',
                 price: '150.00'
             }
@@ -122,31 +147,23 @@ export const selection = [
 export const moreToggles = [
     {
         name: 'Žibintų poliravimas',
+        nameRu: 'Полировка фар',
         url: '/images/headlightPolishing.png',
         price: '13.00'
     },
     {
         name: 'Langų hidrofobinė danga',
+        nameRu: 'Гидрофобное покрытие для окон',
         url: '/images/windowsAnti.png',
         price: '14.00'
     },
     {
-        name: 'Padangu vaskavimas',
+        name: 'Padangų vaškavimas',
+        nameRu: 'Вощение шин',
         url: '/images/tiresWaxing.jpg',
         price: '15.00'
     },
 ]
-
-
-
-
-
-
-
-
-
-
-
 
 //CAR TYPES 
 export const carTypes = [

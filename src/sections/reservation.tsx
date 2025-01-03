@@ -3,9 +3,11 @@ import ReservPopup from "@/components/reservPopup";
 import ReservRightSide from "@/components/reservRightSide";
 import ReservRight from "@/components/reservRightSide";
 import { carTypes, moreToggles, selection } from "@/constants/reservation";
+import { useLanguage } from "@/context/LanguageContext";
 import React, { useState, useEffect, useRef } from "react";
 
 export default function Reservation() {
+    const { language, setLanguage } = useLanguage();
     const [carType, setCarType] = useState<number>(1);
     const [selectedType, setSelectedType] = useState<number | null>(null);
     const [selectedOption, setSelectedOption] = useState<{ [key: number]: string }>({});
@@ -30,6 +32,14 @@ export default function Reservation() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
+    const ltLanguage = () => {
+        setLanguage(true);
+    };
+
+    const ruLanguage = () => {
+        setLanguage(false);
+    };
+
     const togglerBtn = (index: number) => {
         setToggler((prev) =>
             prev.map((item, i) => (i === index ? { ...item, toggled: !item.toggled } : item))
@@ -38,11 +48,8 @@ export default function Reservation() {
 
     const handleTypeClick = (index: number) => {
         const multiplier = index === 0 ? 1 : index === 1 || index === 2 ? 1.15 : 1.25;
-    
-        setCarType(multiplier); // Update state asynchronously
+        setCarType(multiplier);
         setSelectedType(index);
-    
-        // Pass the multiplier explicitly to calculateSum to ensure correct calculations
         calculateSum(services, toggleStates, moreToggleStates, multiplier);
     };
 
@@ -138,18 +145,22 @@ export default function Reservation() {
 
 
     return (
-        <div className="w-screen bg-black min-h-screen flex justify-center flex-col">
+        <div className="w-screen bg-black min-h-screen flex justify-center flex-col overflow-auto">
             <div className="w-full flex flex-col min-h-screen">
                 <div className='w-full h-[10vh] border-b border-b-white/60 justify-center items-center flex'>
                     <a href="/" className=" text-white mix-blend-difference text-4xl font-gruppo pb-1 tracking-tight cursor-pointer">MARLIN MOTORS</a>
+                    <li className="flex justify-center items-center text-white gap-[8px] my-4 absolute right-5">
+                        <div onClick={() => ltLanguage()} className={`${!language ? "text-white" : "text-white/50"} cursor-pointer`}>LT</div>
+                        <div onClick={() => ruLanguage()} className={`${language ? "text-white" : "text-white/50"} cursor-pointer`}>RU</div>
+                    </li>
                 </div>
                 <div className="flex w-full justify-center">
                     <div className="xl:w-10/12 rounded-md grid lg:grid-cols-2">
-                        <ReservLeftSide carTypes={carTypes} handleTypeClick={handleTypeClick} selectedType={selectedType} services={services} selection={selection}
+                        <ReservLeftSide language={language} carTypes={carTypes} handleTypeClick={handleTypeClick} selectedType={selectedType} services={services} selection={selection}
                             dropdownRefs={dropdownRefs} toggler={toggler} togglerBtn={togglerBtn} toggleState={toggleState} selectedOption={selectedOption}
                             selectedStates={selectedStates} handleOptionClick={handleOptionClick} handleToggle={handleToggle} toggleStates={toggleStates} handleMoreToggle={handleMoreToggle} moreToggleStates={moreToggleStates} />
-                        <ReservRightSide toggler={toggler} services={services} selection={selection} handleOptionClick={handleOptionClick} toggleStates={toggleStates}
-                            handleToggle={handleToggle} subtotal={subtotal} sum={sum} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} />
+                        <ReservRightSide language={language} toggler={toggler} services={services} selection={selection} handleOptionClick={handleOptionClick} toggleStates={toggleStates}
+                            handleToggle={handleToggle} subtotal={subtotal} sum={sum} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType} />
                     </div>
                     {reservPopup && <ReservPopup setReservPopup={setReservPopup} />}
                 </div>

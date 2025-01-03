@@ -15,6 +15,9 @@ const config: Config = {
         'ubuntu': ['"Ubuntu"'],
         'ubuntuB': ['"Ubuntu-bold"'],
         'gruppo': ['"Gruppo"'],
+        'raleway': ['"Raleway"'],
+        'montserrat': ['"Montserrat"'],
+        'montserratR': ['"MontserratR"'],
       },
       colors: {
         'dot6': 'rgba(255, 255, 255, .6)',
