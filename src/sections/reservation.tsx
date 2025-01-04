@@ -147,9 +147,9 @@ export default function Reservation() {
     return (
         <div className="w-screen bg-black min-h-screen flex justify-center flex-col overflow-auto">
             <div className="w-full flex flex-col min-h-screen">
-                <div className='w-full h-[10vh] border-b border-b-white/60 justify-center items-center flex'>
-                    <a href="/" className=" text-white mix-blend-difference text-4xl font-gruppo pb-1 tracking-tight cursor-pointer">MARLIN MOTORS</a>
-                    <li className="flex justify-center items-center text-white gap-[8px] my-4 absolute right-5">
+                <div className='w-full h-[10vh] border-b border-b-white/60 justify-center items-center flex flex-col'>
+                    <a href="/" className=" text-white mix-blend-difference text-2xl lg:text-4xl font-gruppo pb-1 tracking-tight cursor-pointer">MARLIN MOTORS</a>
+                    <li className="flex justify-center items-center text-white gap-[8px] lg:my-4 lg:absolute right-5">
                         <div onClick={() => ltLanguage()} className={`${!language ? "text-white" : "text-white/50"} cursor-pointer`}>LT</div>
                         <div onClick={() => ruLanguage()} className={`${language ? "text-white" : "text-white/50"} cursor-pointer`}>RU</div>
                     </li>
@@ -162,7 +162,8 @@ export default function Reservation() {
                         <ReservRightSide language={language} toggler={toggler} services={services} selection={selection} handleOptionClick={handleOptionClick} toggleStates={toggleStates}
                             handleToggle={handleToggle} subtotal={subtotal} sum={sum} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType} />
                     </div>
-                    {reservPopup && <ReservPopup setReservPopup={setReservPopup} />}
+                    {/* {reservPopup && <ReservPopup language={language} setReservPopup={setReservPopup} />} */}
+                    <ReservPopup language={language} setReservPopup={setReservPopup}/>
                 </div>
             </div>
         </div >

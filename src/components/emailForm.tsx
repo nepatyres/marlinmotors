@@ -56,7 +56,7 @@ export default function EmailForm({ language }) {
                         <input type="email" name="email" className="bg-black text-white focus:bg-black py-[6px] px-3 focus:outline-2 focus:outline-blue-400 rounded-md focus:text-white border border-white w-full" placeholder={language ? "El. paštas" : "Эл. почта"} value={formData.email} onChange={handleChange} required />
                     </div>
                     <div className="mb-3">
-                        <input type="phone" name="phone" className="bg-black text-white focus:bg-black py-[6px] px-3 focus:outline-2 focus:outline-blue-400 rounded-md focus:text-white border border-white w-full" placeholder={language ? "Tel. nr" : "тел. номер"} value={formData.phone} onChange={handleChange} required />
+                        <input type="phone" name="phone" className="bg-black text-white focus:bg-black py-[6px] px-3 focus:outline-2 focus:outline-blue-400 rounded-md focus:text-white border border-white w-full" placeholder={language ? "Tel. numeris" : "Тел. номер"} value={formData.phone} onChange={handleChange} required />
                     </div>
                     <div className="mb-3">
                         <textarea name="message" className="bg-black text-white focus:bg-black py-[6px] px-3 focus:outline-2 focus:outline-blue-400 rounded-md focus:text-white border border-white w-full" rows={3} placeholder={language ? "Pranešimas" : "Сообщение"} value={formData.message} onChange={handleChange} required></textarea>

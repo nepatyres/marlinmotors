@@ -15,9 +15,7 @@ export default function ReservRightSide({ language, toggler, services, selection
         }).format(price);
     };
     return (
-        <div className="flex flex-col sm:pl-10 w-2/3 pt-5 mb-20 sm:mb-0 mx-auto sm:mx-0">
-            <div className="relative h-[calc(100vh-10vh)] overflow-auto">
-                <div className="sticky top-0">
+        <div className="flex flex-col lg:pl-10 w-[95%] lg:w-2/3 pt-5 mb-20 sm:mb-0 mx-auto sm:mx-0">
                     <span className="text-white/70 flex font-montserratR text-2xl pt-3 justify-center">{language ? 'Saskaita' : 'Счёт'}</span>
                     {toggler.map((tog: any, i: number) => (
                         <ul key={i} className="w-full flex flex-col justify-center sm:justify-start items-center sm:items-start">
@@ -81,7 +79,5 @@ export default function ReservRightSide({ language, toggler, services, selection
                         <button onClick={() => reservBtn()} className="w-full flex justify-center items-center bg-white text-black px-3 py-1.5 rounded-md">{language ? 'Rezervuoti' : 'Резервация'}</button>
                     </div>
                 </div>
-            </div>
-        </div>
     )
 }
