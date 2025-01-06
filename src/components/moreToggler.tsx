@@ -1,4 +1,4 @@
-export default function MoreToggler({ moreToggled,moreOnToggle }: { moreToggled: boolean, onToggle: () => void }) {
+export default function MoreToggler({ moreToggled,moreOnToggle }: any) {
     return (
         <>
             {moreToggled ? (

@@ -2,7 +2,7 @@ import { navbar } from "@/constants";
 import { phoneSvg, togglerSvg } from "./svg";
 import React, { useState, useEffect } from "react";
 
-export default function Navbar({ language, setLanguage }) {
+export default function Navbar({ language, setLanguage }: any) {
     const [navbarVisible, setNavbarVisible] = useState(false);
     const [scrolling, setScrolling] = useState(false);
 
@@ -25,7 +25,7 @@ export default function Navbar({ language, setLanguage }) {
         setScrolling(window.scrollY > 0 || navbarVisible);
     }, [navbarVisible]);
 
-    const scrollTo = (target) => {
+    const scrollTo = (target: any) => {
         const targetElement = document.getElementById(target);
         const navbarNav = document.getElementById("navbarNav");
         if (targetElement) {

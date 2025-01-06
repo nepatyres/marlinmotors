@@ -1,7 +1,6 @@
 import ReservLeftSide from "@/components/reservLeftSide";
 import ReservPopup from "@/components/reservPopup";
 import ReservRightSide from "@/components/reservRightSide";
-import ReservRight from "@/components/reservRightSide";
 import { carTypes, moreToggles, selection } from "@/constants/reservation";
 import { useLanguage } from "@/context/LanguageContext";
 import React, { useState, useEffect, useRef } from "react";
@@ -20,6 +19,7 @@ export default function Reservation() {
     const [moreToggleStates, setMoreToggleStates] = useState<{ [toggleIndex: number]: boolean }>({});
     const dropdownRefs = useRef<HTMLDivElement[]>([]);
     const [reservPopup, setReservPopup] = useState(false);
+    const [accordionStates, setAccordionStates] = useState<boolean[]>([true, ...Array(selection.length + 1).fill(false)]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -156,14 +156,15 @@ export default function Reservation() {
                 </div>
                 <div className="flex w-full justify-center">
                     <div className="xl:w-10/12 rounded-md grid lg:grid-cols-2">
-                        <ReservLeftSide language={language} carTypes={carTypes} handleTypeClick={handleTypeClick} selectedType={selectedType} services={services} selection={selection}
+                        <ReservLeftSide language={language} carTypes={carTypes} accordionStates={accordionStates} setAccordionStates={setAccordionStates} handleTypeClick={handleTypeClick} selectedType={selectedType} services={services} selection={selection}
                             dropdownRefs={dropdownRefs} toggler={toggler} togglerBtn={togglerBtn} toggleState={toggleState} selectedOption={selectedOption}
                             selectedStates={selectedStates} handleOptionClick={handleOptionClick} handleToggle={handleToggle} toggleStates={toggleStates} handleMoreToggle={handleMoreToggle} moreToggleStates={moreToggleStates} />
-                        <ReservRightSide language={language} toggler={toggler} services={services} selection={selection} handleOptionClick={handleOptionClick} toggleStates={toggleStates}
-                            handleToggle={handleToggle} subtotal={subtotal} sum={sum} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType} />
+                        
+                        <ReservRightSide language={language} toggler={toggler} services={services} selection={selection} handleOptionClick={handleOptionClick} toggleStates={toggleStates} moreToggleStates={moreToggleStates} moreToggles={moreToggles}
+                            handleToggle={handleToggle} subtotal={subtotal} sum={sum} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType}/>
                     </div>
-                    {/* {reservPopup && <ReservPopup language={language} setReservPopup={setReservPopup} />} */}
-                    <ReservPopup language={language} setReservPopup={setReservPopup}/>
+                    {reservPopup && <ReservPopup language={language} setReservPopup={setReservPopup} />}
+                    {/* <ReservPopup language={language} setReservPopup={setReservPopup}/> */}
                 </div>
             </div>
         </div >

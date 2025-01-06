@@ -1,4 +1,35 @@
 export const selection = [
+    // {
+    //     name: 'fullPack',
+    //     span: 'Paketas',
+    //     spanRu: 'Полный пакетa',
+    //     options: [
+    //         {
+    //             name: 'Express plovimas',
+    //             nameRu: 'Экспресс мойка',
+    //             url: '/images/carWashing.png',
+    //             price: '15.00',
+    //             description: 'Greitas kėbulo plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.',
+    //             descriptionRu: 'Быстрая мойка кузова, устраняющая основные загрязнения. Отличный выбор, когда нужен быстрый результат.'
+    //         },
+    //         {
+    //             name: 'Detalus plovimas',
+    //             nameRu: 'Детальная мойка',
+    //             url: '/images/carWashing.png',
+    //             price: '30.00',
+    //             description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
+    //             descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
+    //         },
+    //     ],
+    //     toggle: [
+    //         {
+    //             name: 'Kėbulo vaškavimas',
+    //             nameRu: 'Вощение кузова',
+    //             url: '/images/carWaxing.png',
+    //             price: '13.00'
+    //         }
+    //     ]
+    // },
     {
         name: 'exterior',
         span: 'Kėbulo plovimas',
@@ -64,7 +95,7 @@ export const selection = [
             {
                 name: 'Medžiaginių sėdynių cheminis siurbimas',
                 nameRu: 'Химичистка тканевых сидений',
-                url: '/images/seatsCleaning.png',
+                url: '/images/seatsWashing.png',
                 price: '30.00'
             },
             // {
@@ -105,7 +136,7 @@ export const selection = [
         spanRu: 'Полировка кузова и нано-керамическое покрытие',
         options: [
             {
-                name: 'vieno etapo poliravimas',
+                name: 'Vieno etapo poliravimas',
                 nameRu: 'Полировка одного этапа',
                 url: '/images/carPolishing.png',
                 price: '100.00',
@@ -113,14 +144,16 @@ export const selection = [
                 descriptionRu: 'Удаляются мелкие царапины и восстанавливается цвет автомобиля. Рекомендуется для почти новых или ранее полированных автомобилей, а также перед продажей.'
             },
             {
-                name: 'dveju etapu poliravimas',
+                name: 'Dviejų etapų poliravimas',
+                nameRu: 'Полировка двух этапов',
                 url: '/images/carPolishing.png',
                 price: '140.00',
                 description: 'Pašalinami vidutinio gylio įbrėžimai, oksidavęs lakas, lengvos organinės ir mineralinės dėmės. Rekomenduojama seniai arba niekada nepoliruotiems automobiliams.',
                 descriptionRu: 'Удаляются среднеглубокие царапины, окислившийся лак, легкие органические и минеральные пятна. Рекомендуется для автомобилей, которые давно или никогда не полировались.'
             },
             {
-                name: 'trieju etapu poliravimas',
+                name: 'Trijų etapų poliravimas',
+                nameRu: 'Полировка трех этапов',
                 url: '/images/carPolishing.png',
                 price: '250.00',
                 description: 'Pašalinami gilūs įbrėžimai, suteikia veidrodinį blizgesį. Rekomenduojama norint pasiekti idealią išvaizdą arba automobiliams turintiems daug defektų.',
@@ -131,7 +164,7 @@ export const selection = [
             {
                 name: 'Stiklų Poliravimas',
                 nameRu: 'Полировка стекол',
-                url: '/images/wax.png',
+                url: '/images/windowPolishing.png',
                 price: '30.00'
             },
             {

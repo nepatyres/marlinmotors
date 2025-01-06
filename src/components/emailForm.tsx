@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-export default function EmailForm({ language }) {
+export default function EmailForm({ language }: any) {
     const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
     const [status, setStatus] = useState("");
 
@@ -13,9 +13,9 @@ export default function EmailForm({ language }) {
         }
     }, [status]);
 
-    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
         setStatus(language ? "Siunčiama..." : "Отправка...");
         try {

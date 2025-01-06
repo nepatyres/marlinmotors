@@ -34,6 +34,11 @@ export const services = [
         frontRu: 'Оклейка PPF пленкой',
         url: '/images/ppf.png'
     },
+    {
+        front: 'Paslaugu kainos',
+        frontRu: 'Цена услуг',
+        url: ''
+    },
 ];
 
 
