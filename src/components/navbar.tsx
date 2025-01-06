@@ -1,5 +1,5 @@
 import { navbar } from "@/constants";
-import { phoneSvg, togglerSvg } from "./svg";
+import { togglerSvg } from "./svg";
 import React, { useState, useEffect } from "react";
 
 export default function Navbar({ language, setLanguage }: any) {
