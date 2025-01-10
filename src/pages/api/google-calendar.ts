@@ -1,14 +1,11 @@
 import { google } from "googleapis";
-import fs from "fs";
-import path from "path";
-
-const credentialsPath = path.resolve("./config/service-account.json");
-const credentials = JSON.parse(fs.readFileSync(credentialsPath, "utf8"));
+import dotenv from "dotenv";
+dotenv.config();
 
 const auth = new google.auth.JWT(
-    credentials.client_email,
+    process.env.CLIENT_EMAIL,
     undefined,
-    credentials.private_key,
+    (process.env.PRIVATE_KEY || "").replace(/\\n/g, "\n"),
     ["https://www.googleapis.com/auth/calendar"]
 );
 

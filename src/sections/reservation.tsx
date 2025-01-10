@@ -4,6 +4,7 @@ import ReservRightSide from "@/components/reservRightSide";
 import { carTypes, moreToggles, selection } from "@/constants/reservation";
 import { useLanguage } from "@/context/LanguageContext";
 import React, { useState, useEffect, useRef } from "react";
+import CalPopup from "./calPopup";
 
 export default function Reservation() {
     const { language, setLanguage } = useLanguage();
@@ -117,20 +118,20 @@ export default function Reservation() {
         const totalMoreToggle = Object.entries(moreTogglesStates).reduce((acc, [toggleIndex, isActive]) => {
             return acc + (isActive ? parseFloat(moreToggles[+toggleIndex]?.price || 0) : 0);
         }, 0);
-    
+
         const subtotal = totalServices + totalToggles + totalMoreToggle;
         const totalSum = subtotal * multiplier;  // Calculate sum without promo
         const finalSum = totalSum - promoCode;  // Apply promo discount
-    
+
         // Update state with calculated values
         setSubtotal(subtotal);
         setSum(finalSum);
     };
-    
+
     useEffect(() => {
         calculatePromoCode();
     }, [promo, subtotal, carType]);
-    
+
 
     const calculatePromoCode = () => {
         let discount = 0;
@@ -141,14 +142,14 @@ export default function Reservation() {
             setWrongPromo(true);
             setTimeout(() => setWrongPromo(false), 5000);
         }
-    
+
         // Update the promo discount state
         setPromoCode(discount);
-    
+
         // Recalculate the sum after applying the promo code
         calculateSum(services, toggleStates, moreToggleStates, carType, discount);
     };
-    
+
 
     const toggleState = (index: number) => {
         setSelectedStates((prevStates) =>
@@ -177,6 +178,7 @@ export default function Reservation() {
                             handleToggle={handleToggle} handleMoreToggle={handleMoreToggle} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType} subtotal={subtotal} sum={sum} setPromo={setPromo} promo={promo} promoCode={promoCode} calculatePromoCode={calculatePromoCode} wrongPromo={wrongPromo} />
                     </div>
                     {/* {reservPopup && <ReservPopup language={language} setReservPopup={setReservPopup} sum={sum} />} */}
+                    {<CalPopup />}
                 </div>
             </div>
         </div >
