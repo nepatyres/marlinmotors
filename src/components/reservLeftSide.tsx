@@ -1,7 +1,6 @@
 import React, { useState } from "react"
-import Toggler from "./togglerSvg";
+import Toggler from "@/components/togglerSvg";
 import { moreToggles } from "@/constants/reservation";
-import MoreToggler from "./moreToggler";
 
 export default function ReservLeftSide({ language, carTypes, accordionStates, setAccordionStates, handleTypeClick, selectedType, selection, handleOptionClick, dropdownRefs, toggleState, toggleStates, handleToggle, handleMoreToggle, moreToggleStates, selectedOption, selectedStates }: any) {
     const [priceCheck, setPriceCheck] = useState<string | null>(null);

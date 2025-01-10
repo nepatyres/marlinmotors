@@ -95,3 +95,18 @@ html {
     opacity: 1;
   }
 }
+
+.available {
+  background-color: #4CAF50; /* Green for available dates */
+  color: white;
+}
+
+.unavailable {
+  background-color: #F44336; /* Red for unavailable dates */
+  color: white;
+}
+
+.react-calendar__tile--active {
+  background-color: #3B82F6; /* Blue for the selected date */
+  color: white;
+}

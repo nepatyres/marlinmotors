@@ -1,5 +1,5 @@
 import ReservLeftSide from "@/components/reservLeftSide";
-import ReservPopup from "@/components/reservPopup";
+import ReservPopup from "@/sections/reservPopup";
 import ReservRightSide from "@/components/reservRightSide";
 import { carTypes, moreToggles, selection } from "@/constants/reservation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -13,13 +13,17 @@ export default function Reservation() {
     const [services, setServices] = useState<{ index: Number; price: number }[]>(selection.map(() => ({ index: -1, price: 0 })))
     const [toggler, setToggler] = useState(selection.map((item) => ({ name: item.name, price: item.price || null })));
     const [selectedStates, setSelectedStates] = useState<boolean[]>(Array(selection.length).fill(false));
-    const [sum, setSum] = useState<number>(0.00);
-    const [subtotal, setSubtotal] = useState<number>(0.00);
     const [toggleStates, setToggleStates] = useState<{ [parentIndex: number]: { [toggleIndex: number]: boolean } }>({});
     const [moreToggleStates, setMoreToggleStates] = useState<{ [toggleIndex: number]: boolean }>({});
     const dropdownRefs = useRef<HTMLDivElement[]>([]);
     const [reservPopup, setReservPopup] = useState(false);
     const [accordionStates, setAccordionStates] = useState<boolean[]>([true, ...Array(selection.length + 1).fill(false)]);
+
+    const [subtotal, setSubtotal] = useState<number>(0.00);
+    const [promo, setPromo] = useState('');
+    const [wrongPromo, setWrongPromo] = useState(false);
+    const [promoCode, setPromoCode] = useState<number>(0.00);
+    const [sum, setSum] = useState<number>(0.00);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -50,7 +54,8 @@ export default function Reservation() {
         const multiplier = index === 0 ? 1 : index === 1 || index === 2 ? 1.15 : 1.25;
         setCarType(multiplier);
         setSelectedType(index);
-        calculateSum(services, toggleStates, moreToggleStates, multiplier);
+        calculatePromoCode();
+        calculateSum(services, toggleStates, moreToggleStates, multiplier, promoCode);
     };
 
     const handleOptionOrToggle = (type: 'option' | 'toggle' | 'moreToggle', params: { option?: string, price: number, selectionIndex?: number, optionIndex?: number, parentIndex?: number, toggleIndex?: number }) => {
@@ -86,24 +91,7 @@ export default function Reservation() {
             }
         }
 
-        const serviceSum = updatedServices.reduce((acc, service) => acc + service.price, 0);
-
-        const toggleSum = Object.entries(updatedToggles).reduce((total, [parentIndex, toggles]) => {
-            const togglePrices = selection[parentIndex].toggle || [];
-            return total + Object.entries(toggles).reduce((subTotal, [toggleIndex, isActive]) => {
-                return subTotal + (isActive ? parseFloat(togglePrices[+toggleIndex].price) : 0);
-            }, 0);
-        }, 0);
-
-        const moreToggleSum = Object.entries(updatedMoreToggles).reduce((acc, [toggleIndex, isActive]) => {
-            return acc + (isActive ? parseFloat(moreToggles[+toggleIndex]?.price || '0') : 0);
-        }, 0);
-
-        const subtotal = (serviceSum + toggleSum + moreToggleSum);
-        const totalSum = subtotal * carType;
-
-        setSubtotal(subtotal);
-        setSum(totalSum);
+        calculateSum(updatedServices, updatedToggles, updatedMoreToggles, carType, promoCode);
     };
 
     const handleOptionClick = (option: string, price: string, selectionIndex: number, optionIndex: number) => {
@@ -118,7 +106,7 @@ export default function Reservation() {
         handleOptionOrToggle('moreToggle', { toggleIndex, price: togglePrice });
     }
 
-    const calculateSum = (servicesArray: { price: number }[], toggleArray: { [parentIndex: number]: { [toggleIndex: number]: boolean } }, moreTogglesStates: { [toggleIndex: number]: boolean }, multiplier: number) => {
+    const calculateSum = (servicesArray, toggleArray, moreTogglesStates, multiplier, promoCode) => {
         const totalServices = servicesArray.reduce((acc, service) => acc + service.price, 0);
         const totalToggles = Object.entries(toggleArray).reduce((total, [parentIndex, toggles]) => {
             const togglePrices = selection[parentIndex]?.toggle || [];
@@ -129,13 +117,38 @@ export default function Reservation() {
         const totalMoreToggle = Object.entries(moreTogglesStates).reduce((acc, [toggleIndex, isActive]) => {
             return acc + (isActive ? parseFloat(moreToggles[+toggleIndex]?.price || 0) : 0);
         }, 0);
-
+    
         const subtotal = totalServices + totalToggles + totalMoreToggle;
-        const totalSum = subtotal * multiplier;
-
+        const totalSum = subtotal * multiplier;  // Calculate sum without promo
+        const finalSum = totalSum - promoCode;  // Apply promo discount
+    
+        // Update state with calculated values
         setSubtotal(subtotal);
-        setSum(totalSum);
+        setSum(finalSum);
     };
+    
+    useEffect(() => {
+        calculatePromoCode();
+    }, [promo, subtotal, carType]);
+    
+
+    const calculatePromoCode = () => {
+        let discount = 0;
+        if (promo.trim().toLowerCase() === 'a') {
+            discount = subtotal * 0.1; // Assuming promo 'a' gives a 10% discount
+            setWrongPromo(false);
+        } else {
+            setWrongPromo(true);
+            setTimeout(() => setWrongPromo(false), 5000);
+        }
+    
+        // Update the promo discount state
+        setPromoCode(discount);
+    
+        // Recalculate the sum after applying the promo code
+        calculateSum(services, toggleStates, moreToggleStates, carType, discount);
+    };
+    
 
     const toggleState = (index: number) => {
         setSelectedStates((prevStates) =>
@@ -145,8 +158,8 @@ export default function Reservation() {
 
 
     return (
-        <div className="w-screen bg-black min-h-screen flex justify-center flex-col overflow-auto">
-            <div className="w-full flex flex-col min-h-screen">
+        <div className="w-screen bg-black flex justify-center flex-col overflow-auto">
+            <div className="w-full flex flex-col">
                 <div className='w-full h-[10vh] border-b border-b-white/60 justify-center items-center flex flex-col'>
                     <a href="/" className=" text-white mix-blend-difference text-2xl lg:text-4xl font-gruppo pb-1 tracking-tight cursor-pointer">MARLIN MOTORS</a>
                     <li className="flex justify-center items-center text-white gap-[8px] lg:my-4 lg:absolute right-5">
@@ -159,12 +172,11 @@ export default function Reservation() {
                         <ReservLeftSide language={language} carTypes={carTypes} accordionStates={accordionStates} setAccordionStates={setAccordionStates} handleTypeClick={handleTypeClick} selectedType={selectedType} services={services} selection={selection}
                             dropdownRefs={dropdownRefs} toggler={toggler} togglerBtn={togglerBtn} toggleState={toggleState} selectedOption={selectedOption}
                             selectedStates={selectedStates} handleOptionClick={handleOptionClick} handleToggle={handleToggle} toggleStates={toggleStates} handleMoreToggle={handleMoreToggle} moreToggleStates={moreToggleStates} />
-                        
+
                         <ReservRightSide language={language} toggler={toggler} services={services} selection={selection} handleOptionClick={handleOptionClick} toggleStates={toggleStates} moreToggleStates={moreToggleStates} moreToggles={moreToggles}
-                            handleToggle={handleToggle} subtotal={subtotal} sum={sum} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType}/>
+                            handleToggle={handleToggle} handleMoreToggle={handleMoreToggle} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType} subtotal={subtotal} sum={sum} setPromo={setPromo} promo={promo} promoCode={promoCode} calculatePromoCode={calculatePromoCode} wrongPromo={wrongPromo} />
                     </div>
-                    {reservPopup && <ReservPopup language={language} setReservPopup={setReservPopup} />}
-                    {/* <ReservPopup language={language} setReservPopup={setReservPopup}/> */}
+                    {/* {reservPopup && <ReservPopup language={language} setReservPopup={setReservPopup} sum={sum} />} */}
                 </div>
             </div>
         </div >

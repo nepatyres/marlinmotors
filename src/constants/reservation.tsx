@@ -1,22 +1,22 @@
 export const selection = [
     // {
     //     name: 'fullPack',
-    //     span: 'Paketas',
-    //     spanRu: 'Полный пакетa',
+    //     span: 'Komplektas',
+    //     spanRu: 'Комплект',
     //     options: [
     //         {
-    //             name: 'Express plovimas',
-    //             nameRu: 'Экспресс мойка',
+    //             name: 'Express',
+    //             nameRu: 'Экспресс',
     //             url: '/images/carWashing.png',
-    //             price: '15.00',
+    //             price: '215.00',
     //             description: 'Greitas kėbulo plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.',
     //             descriptionRu: 'Быстрая мойка кузова, устраняющая основные загрязнения. Отличный выбор, когда нужен быстрый результат.'
     //         },
     //         {
-    //             name: 'Detalus plovimas',
-    //             nameRu: 'Детальная мойка',
+    //             name: 'Detalus',
+    //             nameRu: 'Детальная',
     //             url: '/images/carWashing.png',
-    //             price: '30.00',
+    //             price: '330.00',
     //             description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
     //             descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
     //         },
