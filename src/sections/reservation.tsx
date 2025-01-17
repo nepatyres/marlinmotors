@@ -21,9 +21,11 @@ export default function Reservation() {
     const [accordionStates, setAccordionStates] = useState<boolean[]>([true, ...Array(selection.length + 1).fill(false)]);
 
     const [subtotal, setSubtotal] = useState<number>(0.00);
+    const [promoTog, setPromoTog] = useState(false);
     const [promo, setPromo] = useState('');
     const [wrongPromo, setWrongPromo] = useState(false);
     const [promoCode, setPromoCode] = useState<number>(0.00);
+    const [promoActivated, setPromoActivated] = useState(false);
     const [sum, setSum] = useState<number>(0.00);
 
     useEffect(() => {
@@ -55,8 +57,7 @@ export default function Reservation() {
         const multiplier = index === 0 ? 1 : index === 1 || index === 2 ? 1.15 : 1.25;
         setCarType(multiplier);
         setSelectedType(index);
-        calculatePromoCode();
-        calculateSum(services, toggleStates, moreToggleStates, multiplier, promoCode);
+        calculateSum(services, toggleStates, moreToggleStates, multiplier, promoActivated);
     };
 
     const handleOptionOrToggle = (type: 'option' | 'toggle' | 'moreToggle', params: { option?: string, price: number, selectionIndex?: number, optionIndex?: number, parentIndex?: number, toggleIndex?: number }) => {
@@ -92,7 +93,7 @@ export default function Reservation() {
             }
         }
 
-        calculateSum(updatedServices, updatedToggles, updatedMoreToggles, carType, promoCode);
+        calculateSum(updatedServices, updatedToggles, updatedMoreToggles, carType, promoActivated);
     };
 
     const handleOptionClick = (option: string, price: string, selectionIndex: number, optionIndex: number) => {
@@ -107,56 +108,49 @@ export default function Reservation() {
         handleOptionOrToggle('moreToggle', { toggleIndex, price: togglePrice });
     }
 
-    const calculateSum = (servicesArray, toggleArray, moreTogglesStates, multiplier, promoCode) => {
-        const totalServices = servicesArray.reduce((acc, service) => acc + service.price, 0);
+    const calculateSum = (servicesArray, toggleArray, moreTogglesStates, multiplier = 1, promoActive = false) => {
+        const totalServices = servicesArray.reduce((acc, service) => acc + (service.price || 0), 0);
         const totalToggles = Object.entries(toggleArray).reduce((total, [parentIndex, toggles]) => {
             const togglePrices = selection[parentIndex]?.toggle || [];
             return total + Object.entries(toggles).reduce((subTotal, [toggleIndex, isActive]) => {
-                return subTotal + (isActive ? parseFloat(togglePrices[+toggleIndex]?.price || 0) : 0);
+                const price = parseFloat(togglePrices[+toggleIndex]?.price || 0);
+                return subTotal + (isActive ? price : 0);
             }, 0);
         }, 0);
         const totalMoreToggle = Object.entries(moreTogglesStates).reduce((acc, [toggleIndex, isActive]) => {
-            return acc + (isActive ? parseFloat(moreToggles[+toggleIndex]?.price || 0) : 0);
+            const price = parseFloat(moreToggles[+toggleIndex]?.price || 0);
+            return acc + (isActive ? price : 0);
         }, 0);
-
-        const subtotal = totalServices + totalToggles + totalMoreToggle;
-        const totalSum = subtotal * multiplier;  // Calculate sum without promo
-        const finalSum = totalSum - promoCode;  // Apply promo discount
-
-        // Update state with calculated values
-        setSubtotal(subtotal);
+        const baseSubtotal = totalServices + totalToggles + totalMoreToggle;
+        setSubtotal(baseSubtotal);
+        const totalWithMultiplier = baseSubtotal * (multiplier || 1);
+        const promoDiscount = promoActive ? totalWithMultiplier * 0.1 : 0;
+        setPromoCode(promoDiscount);
+        const finalSum = totalWithMultiplier - promoDiscount;
         setSum(finalSum);
     };
 
-    useEffect(() => {
-        calculatePromoCode();
-    }, [promo, subtotal, carType]);
-
 
     const calculatePromoCode = () => {
-        let discount = 0;
         if (promo.trim().toLowerCase() === 'a') {
-            discount = subtotal * 0.1; // Assuming promo 'a' gives a 10% discount
             setWrongPromo(false);
+            setPromoActivated(true);
+            calculateSum(services, toggleStates, moreToggleStates, carType, true);
+            setPromoTog(false)
         } else {
             setWrongPromo(true);
+            setPromoActivated(false);
+            setPromoCode(0);
+            calculateSum(services, toggleStates, moreToggleStates, carType, false);
             setTimeout(() => setWrongPromo(false), 5000);
         }
-
-        // Update the promo discount state
-        setPromoCode(discount);
-
-        // Recalculate the sum after applying the promo code
-        calculateSum(services, toggleStates, moreToggleStates, carType, discount);
     };
-
 
     const toggleState = (index: number) => {
         setSelectedStates((prevStates) =>
             prevStates.map((state, i) => (i === index ? !state : false))
         );
     };
-
 
     return (
         <div className="w-screen bg-black flex justify-center flex-col overflow-auto">
@@ -175,10 +169,11 @@ export default function Reservation() {
                             selectedStates={selectedStates} handleOptionClick={handleOptionClick} handleToggle={handleToggle} toggleStates={toggleStates} handleMoreToggle={handleMoreToggle} moreToggleStates={moreToggleStates} />
 
                         <ReservRightSide language={language} toggler={toggler} services={services} selection={selection} handleOptionClick={handleOptionClick} toggleStates={toggleStates} moreToggleStates={moreToggleStates} moreToggles={moreToggles}
-                            handleToggle={handleToggle} handleMoreToggle={handleMoreToggle} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType} subtotal={subtotal} sum={sum} setPromo={setPromo} promo={promo} promoCode={promoCode} calculatePromoCode={calculatePromoCode} wrongPromo={wrongPromo} />
+                            handleToggle={handleToggle} handleMoreToggle={handleMoreToggle} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType} subtotal={subtotal} sum={sum} setPromoTog={setPromoTog} promoTog={promoTog} setPromo={setPromo} promo={promo} promoCode={promoCode} calculatePromoCode={calculatePromoCode} wrongPromo={wrongPromo} />
                     </div>
-                    {/* {reservPopup && <ReservPopup language={language} setReservPopup={setReservPopup} sum={sum} />} */}
-                    {<CalPopup />}
+                    {
+                    reservPopup && 
+                    <ReservPopup language={language} setReservPopup={setReservPopup} sum={sum} />}
                 </div>
             </div>
         </div >

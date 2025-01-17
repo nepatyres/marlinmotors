@@ -1,110 +1,13 @@
-/* Calendar.css */
-.fc {
-    background-color: transparent;
+
+
+.fc-scrollgrid-section {
+    display: hidden !important;
 }
 
-table {
-    margin: auto;
+.fc-scroller-harness{
+    z-index: 0 !important;
 }
 
-.fc-toolbar {
-    background-color: transparent;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.fc-theme-standard .fc-scrollgrid{
-    border: none;
-    border-collapse:collapse!important;
-}
-
-
-.fc-timegrid-slot {
-    background-color: black;
-    color: white;
-}
-
-.fc-daygrid-body {
-display: none;
-width: none;
-}
-
-.fc-timegrid-slot-label {
-    display: none;
-}
-
-.time-in-slot{
-    display: flex;
-    justify-content: center;
-}
-
-
-thead,
-.fc-timegrid-divider {
-    display: none !important;
-}
-
-
-
-.fc-timegrid-bg-harness {
-    /* border: white solid 1px; */
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    z-index: 9999;
-}
-
-.time-in-slot {
-    cursor: pointer;
-    margin-bottom: 15px;
-    border: rgba(255, 255, 255, 0.5) solid 1px;
-    border-radius: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 50px !important;
-    padding-left: 50px;
-    font-size: 30px;
-    width: 200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.fc-event-main{
-    width: 200px!important;
-}
-
-.time-in-slot.selected-slot {
-    background-color: white;
-    color: black;
-}
-
-.fc-theme-standard td{
-    border: none !important;
-}
-
-.fc-prev-button,
-.fc-next-button {
+/* .bg-white{
     background-color: transparent !important;
-    border: none !important;
-    opacity: 1;
-    cursor: pointer;
-}
-
-.fc-prev-button{
-    margin-left: 20px!important;
-}
-
-.fc-next-button{
-    margin-right: 20px!important;
-}
-
-.fc-prev-button.fc-button-disabled,
-.fc-next-button.fc-button-disabled {
-    opacity: 0.5;
-    /* cursor: not-allowed; */
-}
-
+} */

@@ -1,79 +1,118 @@
-import React, { useEffect, useState } from "react";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import "./Calendar.css";
+import React, { useEffect, useState } from 'react';
 
-const Calendar = ({ onDateClick }: { onDateClick: (date: string) => void }) => {
+interface TimeSlotSelectorProps {
+    isLithuanian?: boolean;
+}
+
+const TimeSlotSelector = ({ isLithuanian = false }: TimeSlotSelectorProps) => {
     const [events, setEvents] = useState([]);
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Translations
+    const translations = {
+        lt: {
+            booking: "Užsakyti",
+            submitting: "Vykdoma...",
+            bookingConfirmed: "Rezervacija patvirtinta!",
+            bookingFailed: "Nepavyko rezervuoti laiko. Bandykite dar kartą.",
+            errorOccurred: "Įvyko klaida. Bandykite dar kartą.",
+        },
+        ru: {
+            booking: "Забронировать",
+            submitting: "Обработка...",
+            bookingConfirmed: "Бронирование подтверждено!",
+            bookingFailed: "Не удалось забронировать. Попробуйте еще раз.",
+            errorOccurred: "Произошла ошибка. Попробуйте еще раз.",
+        }
+    };
+
+    const t = isLithuanian ? translations.lt : translations.ru;
+
+    const timeSlots = Array.from({ length: 4 }, (_, index) => {
+        const startHour = 10 + (index * 2);
+        const endHour = startHour + 2;
+        return {
+            start: `${startHour.toString().padStart(2, '0')}:00`,
+            end: `${endHour.toString().padStart(2, '0')}:00`,
+            value: `${startHour.toString().padStart(2, '0')}:00`
+        };
+    });
 
     useEffect(() => {
-        const fetchEvents = async () => {
-            try {
-                const response = await fetch("/api/google-calendar");
-                const data = await response.json();
-                setEvents(data);
-            } catch (error) {
-                console.error("Failed to fetch events:", error);
-            }
-        };
-
         fetchEvents();
     }, []);
 
-    useEffect(() => {
-        const injectTimeIntoSlots = () => {
-            const timeSlots = document.querySelectorAll(
-                "td.fc-timegrid-slot.fc-timegrid-slot-lane"
-            );
-            timeSlots.forEach((slot) => {
-                const time = slot.getAttribute("data-time");
-                if (time) {
-                    const formattedTime = time.split(":").slice(0, 2).join(":");
-                    slot.innerHTML = `<div class="time-in-slot" data-time="${time}">${formattedTime}</div>`;
-                }
-            });
-
-            const timeInSlots = document.querySelectorAll(".time-in-slot");
-            timeInSlots.forEach((element) => {
-                element.addEventListener("click", () => {
-                    const time = element.getAttribute("data-time");
-                    if (time) {
-                        setSelectedSlot(time);
-                    }
-                });
-            });
-        };
-
-        injectTimeIntoSlots();
-    }, [events]);
-
-    useEffect(() => {
-        const timeInSlots = document.querySelectorAll(".time-in-slot");
-        timeInSlots.forEach((element) => {
-            const time = element.getAttribute("data-time");
-            if (time === selectedSlot) {
-                element.classList.add("selected-slot");
-            } else {
-                element.classList.remove("selected-slot");
-            }
-        });
-    }, [selectedSlot]);
-
-    const today = new Date();
-    const twoWeeksFromNow = new Date();
-    twoWeeksFromNow.setDate(today.getDate() + 14);
-    const validRange = {
-        start: today.toISOString().split("T")[0],
-        end: new Date(twoWeeksFromNow.getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+    const fetchEvents = async () => {
+        try {
+            const response = await fetch("/api/google-calendar");
+            const data = await response.json();
+            setEvents(data);
+        } catch (error) {
+            console.error("Failed to fetch events:", error);
+        }
     };
 
-    const handleSlotSelect = async (slot: string) => {
-        setSelectedSlot(slot);
-        const startTime = new Date(slot).toISOString();
-        const endTime = new Date(new Date(slot).getTime() + 2 * 60 * 60 * 1000).toISOString();
+    const isTimeSlotBooked = (timeSlot: string) => {
+        const [hours] = timeSlot.split(':');
+        const bookingDate = new Date(selectedDate);
+        bookingDate.setHours(parseInt(hours), 0, 0, 0);
+        
+        return events.some((event: any) => {
+            const eventStart = new Date(event.start);
+            return eventStart.getTime() === bookingDate.getTime();
+        });
+    };
+
+    const handleNextDay = () => {
+        const nextDate = new Date(selectedDate);
+        nextDate.setDate(selectedDate.getDate() + 1);
+        setSelectedDate(nextDate);
+        setSelectedSlot(null);
+    };
+
+    const handlePrevDay = () => {
+        const prevDate = new Date(selectedDate);
+        prevDate.setDate(selectedDate.getDate() - 1);
+        
+        if (prevDate >= new Date().setHours(0,0,0,0)) {
+            setSelectedDate(prevDate);
+            setSelectedSlot(null);
+        }
+    };
+
+    const handleSlotSelect = (timeSlot: string) => {
+        if (!isTimeSlotBooked(timeSlot)) {
+            setSelectedSlot(timeSlot);
+        }
+    };
+
+    const formatDate = (date: Date) => {
+        return date.toLocaleDateString(isLithuanian ? 'lt-LT' : 'ru-RU', { 
+            weekday: 'long', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    };
+
+    const isMaxDateReached = () => {
+        const maxDate = new Date();
+        maxDate.setDate(maxDate.getDate() + 13);
+        return selectedDate >= maxDate;
+    };
+
+    const handleBooking = async () => {
+        if (!selectedSlot) return;
+
+        setIsSubmitting(true);
+
+        const bookingDate = new Date(selectedDate);
+        const [hours] = selectedSlot.split(':');
+        bookingDate.setHours(parseInt(hours), 0, 0, 0);
+        
+        const startTime = bookingDate.toISOString();
+        const endTime = new Date(bookingDate.getTime() + 2 * 60 * 60 * 1000).toISOString();
 
         try {
             const response = await fetch("/api/google-calendar", {
@@ -89,42 +128,42 @@ const Calendar = ({ onDateClick }: { onDateClick: (date: string) => void }) => {
             });
 
             if (response.ok) {
-                alert("Booking confirmed!");
-                setSelectedSlot(null);
                 const updatedEvents = await response.json();
                 setEvents(updatedEvents);
+                setSelectedSlot(null);
+                alert(t.bookingConfirmed);
             } else {
-                console.error("Failed to book slot:", await response.text());
+                alert(t.bookingFailed);
             }
         } catch (error) {
             console.error("Error booking slot:", error);
+            alert(t.errorOccurred);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
-        <FullCalendar
-            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            initialView="timeGridDay"
-            events={events}
-            dateClick={(info) => handleSlotSelect(info.dateStr)}
-            headerToolbar={{
-                start: "prev",
-                center: "title",
-                end: "next",
-            }}
-            titleFormat={{ month: 'numeric', year: 'numeric', day: 'numeric' }}
-            slotDuration="02:00:00"
-            slotMinTime="10:00:00"
-            slotMaxTime="18:00:00"
-            // nowIndicator={true}
-            editable={true}
-            selectable={true}
-            eventDisplay="block"
-            height="auto"
-            contentHeight="auto"
-            validRange={validRange}
-        />
+        <div className="w-full h-full mx-auto bg-black p-4 rounded-lg">
+            <div className="flex items-center justify-between mb-6 px-2">
+                <button onClick={handlePrevDay} disabled={selectedDate <= new Date().setHours(0,0,0,0)} className={` p-2 rounded-md transition-colors duration-200 ${selectedDate <= new Date().setHours(0,0,0,0)? 'bg-gray-700 text-gray-400 cursor-not-allowed': 'bg-gray-800 text-white hover:bg-gray-700'}`}>{'<'}</button>
+                <div className="text-white text-lg font-medium px-4 text-center"> {formatDate(selectedDate)}</div>
+                <button onClick={handleNextDay} disabled={isMaxDateReached()} className={` p-2 rounded-md transition-colors duration-200 ${isMaxDateReached()? 'bg-gray-700 text-gray-400 cursor-not-allowed': 'bg-gray-800 text-white hover:bg-gray-700'}`}>{'>'}</button>
+            </div>
+
+            <div className="space-y-2">
+                {timeSlots.map((slot) => (
+                    <div key={slot.value} onClick={() => handleSlotSelect(slot.value)} className={`p-4 rounded-md cursor-pointer transition-colors duration-200 ${isTimeSlotBooked(slot.value) ? 'bg-gray-700 text-gray-400 cursor-not-allowed' : selectedSlot === slot.value ? 'bg-indigo-600 text-white': 'bg-gray-800 text-white hover:bg-gray-700'}`}>
+                        {slot.start} - {slot.end}
+                    </div>
+                ))}
+            </div>
+            
+            <button  onClick={handleBooking} disabled={!selectedSlot || isSubmitting} className={` w-full mt-4 py-2 px-4 rounded-md font-medium transition-colors duration-200 ${selectedSlot && !isSubmitting ? 'bg-indigo-600 text-white hover:bg-indigo-700': 'bg-gray-600 text-gray-300 cursor-not-allowed' }`}>
+                {isSubmitting ? t.submitting : t.booking}
+            </button>
+        </div>
     );
 };
 
-export default Calendar;
+export default TimeSlotSelector;

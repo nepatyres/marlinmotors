@@ -1,6 +1,5 @@
 import React, { useState } from "react"
-export default function ReservRightSide({ language, toggler, services, selection, handleOptionClick, toggleStates, moreToggleStates, moreToggles, handleToggle, handleMoreToggle, setReservPopup, carType, subtotal, sum, promoCode, setPromo, promo, calculatePromoCode, wrongPromo }: any) {
-    const [promoTog, setPromoTog] = useState(false);
+export default function ReservRightSide({ language, toggler, services, selection, handleOptionClick, toggleStates, moreToggleStates, moreToggles, handleToggle, handleMoreToggle, setReservPopup, carType, subtotal, sum, promoCode,promoTog, setPromo, setPromoTog, promo, calculatePromoCode, wrongPromo }: any) {
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('en-US', {
             style: 'decimal',
@@ -18,7 +17,7 @@ export default function ReservRightSide({ language, toggler, services, selection
     }
 
     const reservBtn = () => {
-        setReservPopup(true);
+        setReservPopup((prev) => !prev && sum > 0);
     };
 
     return (
@@ -100,7 +99,7 @@ export default function ReservRightSide({ language, toggler, services, selection
                 </div>
                 {carType > 1 && <div className="w-full justify-between flex flex-row gap-5">
                     <span className="text-lg text-white/70">{language ? 'Kėbulo tipas' : 'Тип кузова'}</span>
-                    <span className="text-2xl text-white/70">€{formatPrice(sum - subtotal)}</span>
+                    <span className="text-2xl text-white/70">€{formatPrice((subtotal * carType) - subtotal)}</span>
                 </div>}
                 {promoCode > 0 &&
                     <div className="w-full justify-between flex flex-row gap-5">
@@ -113,7 +112,7 @@ export default function ReservRightSide({ language, toggler, services, selection
                 </div>
             </div>
             <div className="w-full flex mb-2">
-                <button onClick={() => reservBtn()} className="w-full flex justify-center items-center bg-white text-black px-3 py-1.5 rounded-md">{language ? 'Rezervuoti' : 'Резервация'}</button>
+                <button onClick={reservBtn} className="w-full flex justify-center items-center bg-white text-black px-3 py-1.5 rounded-md">{language ? 'Rezervuoti' : 'Резервация'}</button>
             </div>
             <div className="w-full justify-between items-center flex flex-row gap-5 cursor-pointer" onClick={() => promoTogBtn()}>
                 <span className="text-lg text-white/70 w-full">Turi nuolaidos kodą? <span className="text-white/30">(neprivaloma)</span></span>
