@@ -3,11 +3,17 @@ import AboutUs from "@/sections/aboutUs";
 import Footer from "@/sections/footer";
 import Header from "@/sections/header";
 import Services from "@/sections/services";
-import React, { useEffect } from "react";
-import { useLanguage } from "../context/LanguageContext";
+import React, { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const { language, setLanguage } = useLanguage();
+  const [language, setLanguage] = useState(true);
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage !== null) {
+      setLanguage(JSON.parse(savedLanguage));
+    }
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -16,9 +22,9 @@ export default function HomePage() {
     })();
   }, []);
 
-  if (typeof window === 'undefined') {
-    return null; // or return a loading spinner
-  }
+  useEffect(() => {
+    localStorage.setItem("language", JSON.stringify(language));
+  }, [language]);
 
   return (
     <main>
