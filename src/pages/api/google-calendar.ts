@@ -11,8 +11,8 @@ const auth = new google.auth.JWT(
 
 const calendar = google.calendar({ version: "v3", auth });
 
-export default async function handler(req: any, res:any) {
-    const calendarId =  process.env.CALENDARID;
+export default async function handler(req: any, res: any) {
+    const calendarId = process.env.CALENDARID;
     const timeZone = "Europe/Vilnius";
 
     if (req.method === "GET") {

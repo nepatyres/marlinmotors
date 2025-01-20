@@ -19,14 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             moreToggles,
         } = req.body;
 
-        // Ensure sum has only two decimal points
         const formattedSum = parseFloat(sum).toFixed(2);
-
-        // Generate the services HTML before sending the email
         const generateServicesHTML = () => {
             let servicesHTML = '';
 
-            // Convert the mapping logic to a loop that generates HTML strings
             toggler.forEach((tog: any, i: number) => {
                 if (Number(services[i].index) >= 0) {
                     servicesHTML += `
@@ -48,7 +44,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     `;
                 }
 
-                // Handle toggle states
                 if (toggleStates[i]) {
                     Object.entries(toggleStates[i]).forEach(([toggleIndex, isActive]) => {
                         if (isActive) {
@@ -74,7 +69,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 }
             });
 
-            // Handle more toggle states
             Object.entries(moreToggleStates).forEach(([toggleIndex, isActive]) => {
                 if (isActive) {
                     servicesHTML += `
