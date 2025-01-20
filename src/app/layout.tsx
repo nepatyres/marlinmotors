@@ -1,3 +1,4 @@
+import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 import Head from 'next/head'
 
@@ -11,7 +12,9 @@ export default function RootLayout({
       <Head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
+      <LanguageProvider>
       <body>{children}</body>
+      </LanguageProvider>
     </html>
   );
 }
