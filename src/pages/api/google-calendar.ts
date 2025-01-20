@@ -46,11 +46,13 @@ export default async function handler(req: any, res: any) {
                 end: { dateTime: end, timeZone },
             };
 
+            // Create the event
             await calendar.events.insert({
-                calendarId: 'primary',
+                calendarId, // Use the same calendarId as in GET
                 requestBody: event,
             });
 
+            // Fetch updated events
             const response = await calendar.events.list({
                 calendarId,
                 timeMin: new Date().toISOString(),
