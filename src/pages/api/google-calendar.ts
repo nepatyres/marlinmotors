@@ -11,8 +11,8 @@ const auth = new google.auth.JWT(
 
 const calendar = google.calendar({ version: "v3", auth });
 
-export default async function handler(req, res) {
-    const calendarId = "marlinmotorslt@gmail.com";
+export default async function handler(req: any, res:any) {
+    const calendarId =  process.env.CALENDARID;
     const timeZone = "Europe/Vilnius";
 
     if (req.method === "GET") {
@@ -25,10 +25,10 @@ export default async function handler(req, res) {
                 orderBy: "startTime",
             });
 
-            const events = response.data.items.map((event) => ({
+            const events = response.data.items?.map((event) => ({
                 title: event.summary,
-                start: event.start.dateTime || event.start.date,
-                end: event.end.dateTime || event.end.date,
+                start: event.start?.dateTime || event.start?.date,
+                end: event.end?.dateTime || event.end?.date,
             }));
 
             res.status(200).json(events);
@@ -47,8 +47,8 @@ export default async function handler(req, res) {
             };
 
             await calendar.events.insert({
-                calendarId,
-                resource: event,
+                calendarId: 'primary',
+                requestBody: event,
             });
 
             const response = await calendar.events.list({
@@ -59,10 +59,10 @@ export default async function handler(req, res) {
                 orderBy: "startTime",
             });
 
-            const updatedEvents = response.data.items.map((event) => ({
+            const updatedEvents = response.data.items?.map((event) => ({
                 title: event.summary,
-                start: event.start.dateTime || event.start.date,
-                end: event.end.dateTime || event.end.date,
+                start: event.start?.dateTime || event.start?.date,
+                end: event.end?.dateTime || event.end?.date,
             }));
 
             res.status(201).json(updatedEvents);

@@ -23,13 +23,15 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
     }
 
     const toggleAccordion = (index: number) => {
-        setAccordionStates(prevStates => prevStates.map((state: boolean, i: number) => i === index ? !state : state));
+        setAccordionStates((prevStates: boolean[]) => 
+            prevStates.map((state, i) => i === index ? !state : state)
+        );
     };
 
     return (
         <div className="flex w-full flex-col lg:border-r lg:border-r-white/60 overflow-auto">
             <span className="flex lg:items-end lg:pl-10 justify-center text-[20px] mt-4 lg:text-[30px] font-montserratR uppercase text-white/70">{language ? 'Mūsų paslaugos' : 'Наши услуги'}</span>
-            <div className="flex w-full flex-col pb-5 items-center lg:items-end lg:pr-10">
+            <div className="flex w-full flex-col pb-5 items-center lg:items-end lg:pr-10 mb-10">
                 <div className="flex flex-col pb-4 w-5/6 border-b border-b-white/10 justify-center">z
                     <span className='text-white/70 flex font-montserratR text-2xl pb-4 pt-4 justify-center'>{language ? 'Kėbulo tipas' : 'Тип кузова'}</span>
                     <div className="w-full grid flex-row gap-3 justify-center pb-6 pt-4 grid-cols-2 sm:flex">
@@ -56,7 +58,7 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
                             </div>
                             {accordionStates[i] && (
                                 <div className="gap-5 mb-3 pt-4">
-                                    <button onClick={() => toggleState(i)} className={`z-[9999] w-full justify-between ${selectedOption[i] && selectedOption[i] !== (language ? 'Pasirinkite paslaugą' : 'Выберите услугу') ? 'bg-white/80 text-black fill-black' : 'bg-transparent text-white/70 fill-white'} cursor-pointer flex items-center border border-white/50 focus:border-white rounded-md px-2 py-2 text-xl mb-4`}>{selectedOption[i] ? selectedOption[i] : language ? 'Pasirinkite paslaugą' : 'Выберете услугу'}
+                                    <button onClick={() => toggleState(i)} className={`z-[9999] w-full justify-between ${selectedOption[i] && selectedOption[i] !== (language ? 'Pasirinkite paslaugą' : 'Выберите услугу') ? 'bg-white/80 text-black fill-black' : 'bg-transparent text-white/70 fill-white'} cursor-pointer flex items-center border border-white/50 focus:border-white rounded-md px-2 py-2 text-xl`}>{selectedOption[i] ? selectedOption[i] : language ? 'Pasirinkite paslaugą' : 'Выберете услугу'}
                                         <svg xmlns="http://www.w3.org/2000/svg" className="w-[24px] h-[24px] ml-0.5 mt-0.5" viewBox="0 0 24 24">
                                             <path d="M5.70711 9.71069C5.31658 10.1012 5.31658 10.7344 5.70711 11.1249L10.5993 16.0123C11.3805 16.7927 12.6463 16.7924 13.4271 16.0117L18.3174 11.1213C18.708 10.7308 18.708 10.0976 18.3174 9.70708C17.9269 9.31655 17.2937 9.31655 16.9032 9.70708L12.7176 13.8927C12.3271 14.2833 11.6939 14.2832 11.3034 13.8927L7.12132 9.71069C6.7308 9.32016 6.09763 9.32016 5.70711 9.71069Z" />
                                         </svg>

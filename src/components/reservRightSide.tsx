@@ -17,7 +17,7 @@ export default function ReservRightSide({ language, toggler, services, selection
     }
 
     const reservBtn = () => {
-        setReservPopup((prev) => !prev && sum > 0);
+        setReservPopup((prev: any) => !prev && sum > 0);
     };
 
     return (
@@ -107,25 +107,25 @@ export default function ReservRightSide({ language, toggler, services, selection
                         <span className="text-2xl text-white/70">-€{formatPrice(promoCode)}</span>
                     </div>}
                 <div className="w-full justify-between flex flex-row gap-5 mt-2 mb-8">
-                    <span className="text-xl text-white">{language ? 'Iš viso su PVM' : 'Итого с НДС'}</span>
+                    <span className="text-xl text-white">{language ? 'Iš viso su PVM' : 'Итого с PVM'}</span>
                     <span className="text-3xl text-white">€{formatPrice(sum)}</span>
                 </div>
             </div>
             <div className="w-full flex mb-2">
-                <button onClick={reservBtn} className="w-full flex justify-center items-center bg-white text-black px-3 py-1.5 rounded-md">{language ? 'Rezervuoti' : 'Резервация'}</button>
+                <button onClick={reservBtn} className={`w-full flex justify-center items-center px-3 py-1.5 rounded-md font-montserratR ${sum > 0 ? 'bg-white text-black hover:bg-dot9' : 'bg-gray-600 text-gray-300 cursor-not-allowed'}`}>{language ? 'Rezervuoti' : 'Резервация'}</button>
             </div>
             <div className="w-full justify-between items-center flex flex-row gap-5 cursor-pointer" onClick={() => promoTogBtn()}>
-                <span className="text-lg text-white/70 w-full">Turi nuolaidos kodą? <span className="text-white/30">(neprivaloma)</span></span>
+                <span className="text-lg text-white/70 w-full">{language ? 'Turi nuolaidos kodą?' : 'Есть промокод?'} <span className="text-white/30">{language ? '(neprivaloma)' : '(необязательно)'}</span></span>
                 {!promoTog && <svg viewBox="0 0 24 24" className="fill-white h-6 w-6" focusable="false" aria-hidden="true"><path d="M2.859 7.475a.75.75 0 0 1 1.06 0l7.55 7.55a.75.75 0 0 0 1.06 0l7.551-7.55a.75.75 0 1 1 1.061 1.06l-7.55 7.55a2.25 2.25 0 0 1-3.182 0l-7.55-7.55a.75.75 0 0 1 0-1.06"></path></svg>}
                 {promoTog && <svg viewBox="0 0 24 24" className="fill-white h-6 w-6" focusable="false" aria-hidden="true"><path d="M2.64 15.994c0-.192.073-.384.219-.53l7.55-7.55a2.25 2.25 0 0 1 3.181 0l7.551 7.55a.75.75 0 1 1-1.06 1.06l-7.551-7.55a.75.75 0 0 0-1.06 0l-7.55 7.55a.75.75 0 0 1-1.28-.53"></path></svg>}
             </div>
             {promoTog &&
                 <div className="flex flex-col">
                     <div className="flex flex-row mt-2 mb-1 font-montserratR">
-                        <input className="border border-white bg-black text-white px-2 lg:pr-12 py-1 rounded-md" type="text" name="promo" value={promo} onChange={handlePromoChange} placeholder="Kodas" />
-                        <button onClick={calculatePromoCode} className="bg-white px-2 lg:px-6 py-1 rounded-md ml-4">Pritaikyti</button>
+                        <input className="border border-white bg-black text-white px-2 lg:pr-12 py-1 rounded-md" type="text" name="promo" value={promo} onChange={handlePromoChange} placeholder={language ? "Kodas" : 'Код'} />
+                        <button onClick={calculatePromoCode} className="bg-white px-2 lg:px-6 py-1 rounded-md ml-4">{language ? 'Pritaikyti' : 'Применить'}</button>
                     </div>
-                    {wrongPromo && <span className='font-montserratR text-rdot'>{language ? 'Neteisingas kodas' : 'neteisingas kodas'}</span>}
+                    {wrongPromo && <span className='font-montserratR text-rdot'>{language ? 'Neteisingas kodas' : 'Неверный код'}</span>}
                 </div>}
         </div>
     )

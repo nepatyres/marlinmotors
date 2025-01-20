@@ -3,7 +3,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { services } from '@/constants';
 
-export default function Services({ language }) {
+export default function Services({ language }: any) {
     const refs = useRef<Array<{ box: HTMLDivElement | null }>>(services.map(() => ({ box: null })));
 
     useLayoutEffect(() => {

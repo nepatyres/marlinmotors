@@ -6,13 +6,30 @@ import { useLanguage } from "@/context/LanguageContext";
 import React, { useState, useEffect, useRef } from "react";
 import CalPopup from "./calPopup";
 
+interface Toggle {
+    price: string;
+    // add other properties if needed
+}
+
+interface SelectionItem {
+    toggle?: Toggle[];
+    // add other properties if needed
+}
+
+// Assuming toggleArray is a record of records of boolean values
+interface ToggleArray {
+    [key: string]: {
+        [key: string]: boolean;
+    };
+}
+
 export default function Reservation() {
     const { language, setLanguage } = useLanguage();
     const [carType, setCarType] = useState<number>(1);
     const [selectedType, setSelectedType] = useState<number | null>(null);
     const [selectedOption, setSelectedOption] = useState<{ [key: number]: string }>({});
     const [services, setServices] = useState<{ index: Number; price: number }[]>(selection.map(() => ({ index: -1, price: 0 })))
-    const [toggler, setToggler] = useState(selection.map((item) => ({ name: item.name, price: item.price || null })));
+    const [toggler, setToggler] = useState(selection.map((item) => ({ name: item.name, price: item.options[0]?.price || null, toggled: false })));
     const [selectedStates, setSelectedStates] = useState<boolean[]>(Array(selection.length).fill(false));
     const [toggleStates, setToggleStates] = useState<{ [parentIndex: number]: { [toggleIndex: number]: boolean } }>({});
     const [moreToggleStates, setMoreToggleStates] = useState<{ [toggleIndex: number]: boolean }>({});
@@ -70,7 +87,7 @@ export default function Reservation() {
             if (selectionIndex !== undefined && optionIndex !== undefined) {
                 updatedServices[selectionIndex] = { index: optionIndex, price: Number(price) };
                 setServices(updatedServices);
-                setSelectedOption((prev) => ({ ...prev, [selectionIndex]: option }));
+                setSelectedOption((prev) => ({ ...prev, [selectionIndex]: option ?? "" }));
                 setSelectedStates((prev) => prev.map((_, idx) => (idx === selectionIndex ? false : prev[idx])));
             }
         } else if (type === 'toggle') {
@@ -108,17 +125,19 @@ export default function Reservation() {
         handleOptionOrToggle('moreToggle', { toggleIndex, price: togglePrice });
     }
 
-    const calculateSum = (servicesArray, toggleArray, moreTogglesStates, multiplier = 1, promoActive = false) => {
-        const totalServices = servicesArray.reduce((acc, service) => acc + (service.price || 0), 0);
-        const totalToggles = Object.entries(toggleArray).reduce((total, [parentIndex, toggles]) => {
-            const togglePrices = selection[parentIndex]?.toggle || [];
+    
+
+    const calculateSum = (servicesArray: any, toggleArray: any, moreTogglesStates: any, multiplier = 1, promoActive = false) => {
+        const totalServices = servicesArray.reduce((acc: any, service: any) => acc + (service.price || 0), 0);
+        const totalToggles = Object.entries(toggleArray as ToggleArray).reduce((total, [parentIndex, toggles]) => {
+            const togglePrices = selection[Number(parentIndex)]?.toggle || [];
             return total + Object.entries(toggles).reduce((subTotal, [toggleIndex, isActive]) => {
-                const price = parseFloat(togglePrices[+toggleIndex]?.price || 0);
+                const price = parseFloat(togglePrices[Number(toggleIndex)]?.price || '0');
                 return subTotal + (isActive ? price : 0);
             }, 0);
         }, 0);
         const totalMoreToggle = Object.entries(moreTogglesStates).reduce((acc, [toggleIndex, isActive]) => {
-            const price = parseFloat(moreToggles[+toggleIndex]?.price || 0);
+            const price = parseFloat(moreToggles[+toggleIndex]?.price?.toString() || '0');
             return acc + (isActive ? price : 0);
         }, 0);
         const baseSubtotal = totalServices + totalToggles + totalMoreToggle;
@@ -153,7 +172,7 @@ export default function Reservation() {
     };
 
     return (
-        <div className="w-screen bg-black flex justify-center flex-col overflow-auto">
+        <div className="w-screen min-h-screen bg-black flex justify-center flex-col overflow-auto">
             <div className="w-full flex flex-col">
                 <div className='w-full h-[10vh] border-b border-b-white/60 justify-center items-center flex flex-col'>
                     <a href="/" className=" text-white mix-blend-difference text-2xl lg:text-4xl font-gruppo pb-1 tracking-tight cursor-pointer">MARLIN MOTORS</a>
@@ -162,8 +181,8 @@ export default function Reservation() {
                         <div onClick={() => ruLanguage()} className={`${language ? "text-white" : "text-white/50"} cursor-pointer`}>RU</div>
                     </li>
                 </div>
-                <div className="flex w-full justify-center">
-                    <div className="xl:w-10/12 rounded-md grid lg:grid-cols-2">
+                <div className="flex w-full h-full justify-center">
+                    <div className="xl:w-10/12 2xl:w-8/12 h-full rounded-md grid lg:grid-cols-2">
                         <ReservLeftSide language={language} carTypes={carTypes} accordionStates={accordionStates} setAccordionStates={setAccordionStates} handleTypeClick={handleTypeClick} selectedType={selectedType} services={services} selection={selection}
                             dropdownRefs={dropdownRefs} toggler={toggler} togglerBtn={togglerBtn} toggleState={toggleState} selectedOption={selectedOption}
                             selectedStates={selectedStates} handleOptionClick={handleOptionClick} handleToggle={handleToggle} toggleStates={toggleStates} handleMoreToggle={handleMoreToggle} moreToggleStates={moreToggleStates} />
@@ -172,8 +191,8 @@ export default function Reservation() {
                             handleToggle={handleToggle} handleMoreToggle={handleMoreToggle} handleTypeClick={handleTypeClick} setReservPopup={setReservPopup} carType={carType} subtotal={subtotal} sum={sum} setPromoTog={setPromoTog} promoTog={promoTog} setPromo={setPromo} promo={promo} promoCode={promoCode} calculatePromoCode={calculatePromoCode} wrongPromo={wrongPromo} />
                     </div>
                     {
-                    reservPopup && 
-                    <ReservPopup language={language} setReservPopup={setReservPopup} sum={sum} />}
+                        reservPopup &&
+                        <ReservPopup language={language} setReservPopup={setReservPopup} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} moreToggleStates={moreToggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} moreToggles={moreToggles} />}
                 </div>
             </div>
         </div >
