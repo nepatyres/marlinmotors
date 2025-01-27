@@ -8,15 +8,12 @@ import CalPopup from "./calPopup";
 
 interface Toggle {
     price: string;
-    // add other properties if needed
 }
 
 interface SelectionItem {
     toggle?: Toggle[];
-    // add other properties if needed
 }
 
-// Assuming toggleArray is a record of records of boolean values
 interface ToggleArray {
     [key: string]: {
         [key: string]: boolean;
@@ -44,6 +41,8 @@ export default function Reservation() {
     const [promoCode, setPromoCode] = useState<number>(0.00);
     const [promoActivated, setPromoActivated] = useState(false);
     const [sum, setSum] = useState<number>(0.00);
+
+    const [isRegistered, setIsRegistered] = useState(false);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -81,14 +80,34 @@ export default function Reservation() {
         let updatedServices = [...services];
         let updatedToggles = { ...toggleStates };
         let updatedMoreToggles = { ...moreToggleStates };
-
+    
         if (type === 'option') {
             const { option, price, selectionIndex, optionIndex } = params;
+    
             if (selectionIndex !== undefined && optionIndex !== undefined) {
                 updatedServices[selectionIndex] = { index: optionIndex, price: Number(price) };
+                if (selectionIndex === 0) {
+                    if (optionIndex === 2) {
+                        updatedToggles = {};
+                    } else if (optionIndex === 1) {
+                        const firstToggleState = toggleStates['0']?.[0] || false;
+                        updatedToggles = {
+                            '0': { 0: firstToggleState }
+                        };
+                    }
+                }
+                if (selectionIndex === 1) {
+                    if ([0, 1, 2].includes(optionIndex)) {
+                        const { 0: _, ...remainingToggles } = updatedMoreToggles;
+                        updatedMoreToggles = remainingToggles;
+                        setMoreToggleStates(remainingToggles);
+                    }
+                }
+    
                 setServices(updatedServices);
                 setSelectedOption((prev) => ({ ...prev, [selectionIndex]: option ?? "" }));
                 setSelectedStates((prev) => prev.map((_, idx) => (idx === selectionIndex ? false : prev[idx])));
+                setToggleStates(updatedToggles);
             }
         } else if (type === 'toggle') {
             const { parentIndex, toggleIndex } = params;
@@ -109,7 +128,7 @@ export default function Reservation() {
                 setMoreToggleStates(updatedMoreToggles);
             }
         }
-
+    
         calculateSum(updatedServices, updatedToggles, updatedMoreToggles, carType, promoActivated);
     };
 
@@ -125,7 +144,7 @@ export default function Reservation() {
         handleOptionOrToggle('moreToggle', { toggleIndex, price: togglePrice });
     }
 
-    
+
 
     const calculateSum = (servicesArray: any, toggleArray: any, moreTogglesStates: any, multiplier = 1, promoActive = false) => {
         const totalServices = servicesArray.reduce((acc: any, service: any) => acc + (service.price || 0), 0);
@@ -151,7 +170,7 @@ export default function Reservation() {
 
 
     const calculatePromoCode = () => {
-        if (promo.trim().toLowerCase() === 'a') {
+        if (promo.trim() === 'KvKh5Wvc') {
             setWrongPromo(false);
             setPromoActivated(true);
             calculateSum(services, toggleStates, moreToggleStates, carType, true);
@@ -171,8 +190,22 @@ export default function Reservation() {
         );
     };
 
+    const handleRegister = () => {
+        setIsRegistered(true);
+        setTimeout(() => setIsRegistered(false), 3000);
+    };
+
+    useEffect(() => {
+        const shouldTriggerRegister = localStorage.getItem("triggerRegister");
+        if (shouldTriggerRegister) {
+            handleRegister();
+            localStorage.removeItem("triggerRegister");
+        }
+    }, []);
+
+
     return (
-        <div className="w-screen min-h-screen bg-black flex justify-center flex-col overflow-auto">
+        <div className={`w-screen ${reservPopup ? 'h-screen' : 'min-h-screen'} bg-black flex justify-center flex-col overflow-auto`}>
             <div className="w-full flex flex-col">
                 <div className='w-full h-[10vh] border-b border-b-white/60 justify-center items-center flex flex-col'>
                     <a href="/" className=" text-white mix-blend-difference text-2xl lg:text-4xl font-gruppo pb-1 tracking-tight cursor-pointer">MARLIN MOTORS</a>
@@ -192,7 +225,10 @@ export default function Reservation() {
                     </div>
                     {
                         reservPopup &&
-                        <ReservPopup language={language} setReservPopup={setReservPopup} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} moreToggleStates={moreToggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} moreToggles={moreToggles} />}
+                        <ReservPopup language={language} setReservPopup={setReservPopup} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} moreToggleStates={moreToggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} moreToggles={moreToggles} handleRegister={handleRegister} />}
+                    {isRegistered && <span className="text-green-600 font-medium mt-4 fixed bg-green-50 border border-green-400 rounded-md px-4 py-2 shadow-sm">
+                        {language ? 'Rezervacija sėkminga!' : 'Резервация удачна!'}
+                    </span>}
                 </div>
             </div>
         </div >

@@ -13,6 +13,12 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
             bookingConfirmed: "Rezervacija patvirtinta!",
             bookingFailed: "Nepavyko rezervuoti laiko. Bandykite dar kartą.",
             errorOccurred: "Įvyko klaida. Bandykite dar kartą.",
+            months: {
+                0: 'sausio', 1: 'vasario', 2: 'kovo', 3: 'balandžio', 4: 'gegužės', 5: 'birželio', 6: 'liepos', 7: 'rugpjūčio', 8: 'rugsėjo', 9: 'spalio', 10: 'lapkričio', 11: 'gruodžio'
+            },
+            weekdays: {
+                0: 'sekmadienis', 1: 'pirmadienis', 2: 'antradienis', 3: 'trečiadienis', 4: 'ketvirtadienis', 5: 'penktadienis', 6: 'šeštadienis'
+            }
         },
         ru: {
             booking: "Забронировать",
@@ -20,24 +26,27 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
             bookingConfirmed: "Бронирование подтверждено!",
             bookingFailed: "Не удалось забронировать. Попробуйте еще раз.",
             errorOccurred: "Произошла ошибка. Попробуйте еще раз.",
+            months: {
+                0: 'января', 1: 'февраля', 2: 'марта', 3: 'апреля', 4: 'мая', 5: 'июня', 6: 'июля', 7: 'августа', 8: 'сентября', 9: 'октября', 10: 'ноября', 11: 'декабря'
+            },
+            weekdays: {
+                0: 'воскресенье', 1: 'понедельник', 2: 'вторник', 3: 'среда', 4: 'четверг', 5: 'пятница', 6: 'суббота'
+            }
         },
     };
+    
 
     const t = isLithuanian ? translations.lt : translations.ru;
 
-    const timeSlots = Array.from({ length: 4 }, (_, index) => {
-        const startHour = 10 + index * 2;
-        const endHour = startHour + 2;
-        return {
-            start: `${startHour.toString().padStart(2, '0')}:00`,
-            end: `${endHour.toString().padStart(2, '0')}:00`,
-            value: `${startHour.toString().padStart(2, '0')}:00`,
-        };
-    });
+    const timeSlots = [
+        { start: '10:00', end: '11:00', value: '10:00' },
+        { start: '11:00', end: '12:00', value: '11:00' },
+        { start: '12:00', end: '13:00', value: '12:00' },
+    ];
 
     useEffect(() => {
         const now = new Date();
-        if (now.getHours() >= 16) {
+        if (now.getHours() >= 12) {
             const nextDay = new Date(now);
             nextDay.setDate(now.getDate() + 1);
             setSelectedDate(nextDay);
@@ -79,7 +88,7 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
         prevDate.setDate(selectedDate.getDate() - 1);
 
         const now = new Date();
-        const isPastWorkingDay = now.getHours() >= 16 && prevDate.toDateString() === now.toDateString();
+        const isPastWorkingDay = now.getHours() >= 12 && prevDate.toDateString() === now.toDateString();
 
         if (
             !isPastWorkingDay &&
@@ -97,12 +106,19 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
     };
 
     const formatDate = (date: Date) => {
-        return date.toLocaleDateString(isLithuanian ? 'lt-LT' : 'ru-RU', {
+        if (isLithuanian) {
+            const day = date.getDate();
+            const month = (t.months as Record<number, string>)[date.getMonth()];
+            const weekday = (t.weekdays as Record<number, string>)[date.getDay()];
+            return `${weekday}, ${month} ${day} d.`;
+        }
+        return date.toLocaleDateString('ru-RU', {
             weekday: 'long',
             month: 'long',
             day: 'numeric',
         });
     };
+    
 
     const isMaxDateReached = () => {
         const maxDate = new Date();
@@ -117,7 +133,7 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
         const [hours] = selectedSlot.split(':');
         bookingDate.setHours(parseInt(hours), 0, 0, 0);
         const startTime = bookingDate.toISOString();
-        const endTime = new Date(bookingDate.getTime() + 2 * 60 * 60 * 1000).toISOString();
+        const endTime = new Date(bookingDate.getTime() + 1 * 60 * 60 * 1000).toISOString();
 
         try {
             const response = await fetch("/api/google-calendar", {
@@ -136,6 +152,8 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
                 const updatedEvents = await response.json();
                 setEvents(updatedEvents);
                 setSelectedSlot(null);
+                localStorage.setItem("triggerRegister", "true");
+                window.location.reload();
                 setCalPopup(false);
                 setReservPopup(false);
             }
@@ -149,19 +167,7 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
     const handleSubmit = async () => {
         try {
             const bookingData = {
-                formData,
-                carType,
-                selectedType,
-                services,
-                toggleStates,
-                moreToggleStates,
-                subtotal,
-                promoCode,
-                sum,
-                selectedOption,
-                toggler,
-                selection,
-                moreToggles
+                formData, carType, selectedType, services, toggleStates, moreToggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection, moreToggles
             };
 
             const response = await fetch("/api/booking", {
@@ -178,11 +184,7 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
     return (
         <div className="w-full h-full mx-auto bg-black p-4 rounded-lg">
             <div className="flex items-center justify-between mb-6 px-2">
-                <button
-                    onClick={handlePrevDay}
-                    disabled={selectedDate.getTime() <= new Date().setHours(0, 0, 0, 0)}
-                    className={`py-2 px-4 text-[20px] rounded-md transition-colors duration-200 ${selectedDate.getTime() <= new Date().setHours(0, 0, 0, 0) ? 'bg-gray-700 text-gray-400 cursor-not-allowed' : 'bg-gray-800 text-white hover:bg-gray-700'}`}
-                >
+                <button onClick={handlePrevDay} disabled={selectedDate.getTime() <= new Date().setHours(0, 0, 0, 0)} className={`py-2 px-4 text-[20px] rounded-md transition-colors duration-200 ${selectedDate.getTime() <= new Date().setHours(0, 0, 0, 0) ? 'bg-gray-700 text-gray-400 cursor-not-allowed' : 'bg-gray-800 text-white hover:bg-gray-700'}`}>
                     {'<'}
                 </button>
                 <div className="text-white text-lg font-medium px-4 text-center">
@@ -197,16 +199,16 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
                 {timeSlots.filter((slot) => {
                     if (
                         selectedDate.toDateString() === new Date().toDateString() &&
-                        new Date().getHours() >= 16
+                        new Date().getHours() >= 12
                     ) {
                         const [startHour] = slot.start.split(':');
-                        return parseInt(startHour) >= 16;
+                        return parseInt(startHour) >= 12;
                     }
                     return true;
                 })
                     .map((slot) => (
-                        <div key={slot.value} onClick={() => handleSlotSelect(slot.value)} className={`p-4 rounded-md cursor-pointer transition-colors duration-200 ${isTimeSlotBooked(slot.value) ? 'bg-gray-700 text-gray-400 cursor-not-allowed' : selectedSlot === slot.value ? 'bg-indigo-600 text-white' : 'bg-gray-800 text-white hover:bg-gray-700'}`}>
-                            {slot.start} - {slot.end}
+                        <div key={slot.value} onClick={() => handleSlotSelect(slot.value)} className={`p-4 text-[22px] rounded-md cursor-pointer transition-colors duration-200 ${isTimeSlotBooked(slot.value) ? 'bg-gray-700 text-gray-400 cursor-not-allowed' : selectedSlot === slot.value ? 'bg-white/80 text-black' : 'bg-gray-800 text-white hover:bg-gray-700'}`}>
+                            {slot.start}
                         </div>
                     ))}
             </div>

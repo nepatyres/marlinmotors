@@ -97,7 +97,7 @@ export default function ReservRightSide({ language, toggler, services, selection
                     <span className="text-lg text-white/70">{language ? 'Tarpinė suma' : 'Промежуточная сумма'}</span>
                     <span className="text-2xl text-white/70">€{formatPrice(subtotal)}</span>
                 </div>
-                {carType > 1 && <div className="w-full justify-between flex flex-row gap-5">
+                {carType > 1 && sum > 0 && <div className="w-full justify-between flex flex-row gap-5">
                     <span className="text-lg text-white/70">{language ? 'Kėbulo tipas' : 'Тип кузова'}</span>
                     <span className="text-2xl text-white/70">€{formatPrice((subtotal * carType) - subtotal)}</span>
                 </div>}

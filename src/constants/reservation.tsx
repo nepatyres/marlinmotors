@@ -1,66 +1,4 @@
 export const selection = [
-    // {
-    //     name: 'fullPack',
-    //     span: 'Komplektas',
-    //     spanRu: 'Комплект',
-    //     options: [
-    //         {
-    //             name: 'Express',
-    //             nameRu: 'Экспресс',
-    //             url: '/images/carWashing.png',
-    //             price: '215.00',
-    //             description: 'Greitas kėbulo plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.',
-    //             descriptionRu: 'Быстрая мойка кузова, устраняющая основные загрязнения. Отличный выбор, когда нужен быстрый результат.'
-    //         },
-    //         {
-    //             name: 'Detalus',
-    //             nameRu: 'Детальная',
-    //             url: '/images/carWashing.png',
-    //             price: '330.00',
-    //             description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
-    //             descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
-    //         },
-    //     ],
-    //     toggle: [
-    //         {
-    //             name: 'Kėbulo vaškavimas',
-    //             nameRu: 'Вощение кузова',
-    //             url: '/images/carWaxing.png',
-    //             price: '13.00'
-    //         }
-    //     ]
-    // },
-    {
-        name: 'exterior',
-        span: 'Kėbulo plovimas',
-        spanRu: 'Мойка кузова',
-        options: [
-            {
-                name: 'Express plovimas',
-                nameRu: 'Экспресс мойка',
-                url: '/images/carWashing.png',
-                price: '15.00',
-                description: 'Greitas kėbulo plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.',
-                descriptionRu: 'Быстрая мойка кузова, устраняющая основные загрязнения. Отличный выбор, когда нужен быстрый результат.'
-            },
-            {
-                name: 'Detalus plovimas',
-                nameRu: 'Детальная мойка',
-                url: '/images/carWashing.png',
-                price: '30.00',
-                description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
-                descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
-            },
-        ],
-        toggle: [
-            {
-                name: 'Kėbulo vaškavimas',
-                nameRu: 'Вощение кузова',
-                url: '/images/carWaxing.png',
-                price: '13.00'
-            }
-        ]
-    },
     {
         name: 'interior',
         span: 'Salono valymas',
@@ -71,27 +9,33 @@ export const selection = [
                 nameRu: 'Сухая чистка',
                 url: '/images/carCleaning.png',
                 price: '35.00',
-                description: 'Salono paviršių valymas, pašalinant dulkes, trupinius ir smulkius nešvarumus. Greitas ir paprastas būdas atnaujinti automobilio vidų.',
-                descriptionRu: 'Чистка поверхностей салона, удаление пыли, крошек и мелких загрязнений. Быстрый и простой способ обновить интерьер автомобиля.'
+                description: 'Salono paviršių valymas, pašalinant dulkes, trupinius ir smulkius nešvarumus. Greitas ir paprastas būdas atnaujinti automobilio vidų. Į paslaugą įeina express kėbulo plovimas.',
+                descriptionRu: 'Чистка поверхностей салона, удаление пыли, крошек и мелких загрязнений. Быстрый и простой способ обновить интерьер автомобиля. В услугу входит экспресс-мойка кузова.'
             },
             {
                 name: 'Cheminis valymas',
                 nameRu: 'Химчистка',
                 url: '/images/carCleaning.png',
-                price: '100.00',
-                description: 'Kruopštus salono valymas, naudojant specialias chemines priemones, kurios pašalina dėmes, kvapus ir giluminius nešvarumus nuo sėdynių ir kitų paviršių.',
-                descriptionRu: 'Тщательная чистка салона с использованием специальных химических средств, которые удаляют пятна, запахи и глубинные загрязнения с сидений и других поверхностей.'
+                price: '75.00',
+                description: 'Kruopštus salono valymas, naudojant specialias chemines priemones, kurios pašalina dėmes, kvapus ir giluminius nešvarumus nuo sėdynių ir kitų paviršių. Į paslaugą įeina express kėbulo plovimas.',
+                descriptionRu: 'Тщательная чистка салона с использованием специальных химических средств, которые удаляют пятна, запахи и глубинные загрязнения с сидений и других поверхностей. В услугу входит экспресс-мойка кузова.'
             },
             {
                 name: 'Detalus cheminis valymas',
                 nameRu: 'Детальная химчистка',
                 url: '/images/carCleaning.png',
                 price: '140.00',
-                description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą.',
-                descriptionRu: 'Полная чистка салона, включая труднодоступные места. Включает глубокое удаление пятен, застарелых загрязнений и запахов, а также обновление пластиковых и текстильных элементов.'
+                description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą. Į paslaugą įeina express kėbulo plovimas.',
+                descriptionRu: 'Полная чистка салона, включая труднодоступные места. Включает глубокое удаление пятен, застарелых загрязнений и запахов, а также обновление пластиковых и текстильных элементов. В услугу входит экспресс-мойка кузова.'
             },
         ],
         toggle: [
+            {
+                name: 'Lubų valymas',
+                nameRu: 'Чистка потолка',
+                url: '/images/ceilingWash.png',
+                price: '15.00'
+            },
             {
                 name: 'Medžiaginių sėdynių cheminis siurbimas',
                 nameRu: 'Химичистка тканевых сидений',
@@ -117,12 +61,6 @@ export const selection = [
                 price: '25.00'
             },
             {
-                name: 'Lubų valymas',
-                nameRu: 'Чистка потолка',
-                url: '/images/ceilingWash.png',
-                price: '15.00'
-            },
-            {
                 name: 'Bagažinės cheminis siurbimas',
                 nameRu: 'Химчистка багажника',
                 url: '/images/trunkCleaning.png',
@@ -132,52 +70,103 @@ export const selection = [
     },
     {
         name: 'polishing',
-        span: 'Kėbulo poliravimas ir Nano-keraminę dangą',
-        spanRu: 'Полировка кузова и нано-керамическое покрытие',
+        span: 'Kėbulo poliravimas',
+        spanRu: 'Полировка кузова',
         options: [
             {
                 name: 'Vieno etapo poliravimas',
                 nameRu: 'Полировка одного этапа',
                 url: '/images/carPolishing.png',
                 price: '100.00',
-                description: 'Pašalinami smulkus įbrėžimai ir atgaivina automobilio spalvą. Rekomenduojama apynaujiems ar anksčiau poliruotiems automobiliams bei prieš pardavimą.',
-                descriptionRu: 'Удаляются мелкие царапины и восстанавливается цвет автомобиля. Рекомендуется для почти новых или ранее полированных автомобилей, а также перед продажей.'
+                description: 'Pašalinami smulkus įbrėžimai ir atgaivina automobilio spalvą. Rekomenduojama apynaujiems ar anksčiau poliruotiems automobiliams bei prieš pardavimą. Į paslaugą įeina detalus kėbulo plovimas.',
+                descriptionRu: 'Удаляются мелкие царапины и восстанавливается цвет автомобиля. Рекомендуется для почти новых или ранее полированных автомобилей, а также перед продажей. В услугу входит детальная мойка кузова.'
             },
             {
                 name: 'Dviejų etapų poliravimas',
                 nameRu: 'Полировка двух этапов',
                 url: '/images/carPolishing.png',
-                price: '140.00',
-                description: 'Pašalinami vidutinio gylio įbrėžimai, oksidavęs lakas, lengvos organinės ir mineralinės dėmės. Rekomenduojama seniai arba niekada nepoliruotiems automobiliams.',
-                descriptionRu: 'Удаляются среднеглубокие царапины, окислившийся лак, легкие органические и минеральные пятна. Рекомендуется для автомобилей, которые давно или никогда не полировались.'
+                price: '250.00',
+                description: 'Pašalinami vidutinio gylio įbrėžimai, oksidavęs lakas, lengvos organinės ir mineralinės dėmės. Rekomenduojama seniai arba niekada nepoliruotiems automobiliams. Į paslaugą įeina detalus kėbulo plovimas.',
+                descriptionRu: 'Удаляются среднеглубокие царапины, окислившийся лак, легкие органические и минеральные пятна. Рекомендуется для автомобилей, которые давно или никогда не полировались. В услугу входит детальная мойка кузова.'
             },
             {
                 name: 'Trijų etapų poliravimas',
                 nameRu: 'Полировка трех этапов',
                 url: '/images/carPolishing.png',
-                price: '250.00',
-                description: 'Pašalinami gilūs įbrėžimai, suteikia veidrodinį blizgesį. Rekomenduojama norint pasiekti idealią išvaizdą arba automobiliams turintiems daug defektų.',
-                descriptionRu: 'Удаляются глубокие царапины, придаётся зеркальный блеск. Рекомендуется для достижения идеального внешнего вида или для автомобилей с большим количеством дефектов.'
+                price: '340.00',
+                description: 'Pašalinami gilūs įbrėžimai, suteikia veidrodinį blizgesį. Rekomenduojama norint pasiekti idealią išvaizdą arba automobiliams turintiems daug defektų. Į paslaugą įeina detalus kėbulo plovimas.',
+                descriptionRu: 'Удаляются глубокие царапины, придаётся зеркальный блеск. Рекомендуется для достижения идеального внешнего вида или для автомобилей с большим количеством дефектов. В услугу входит детальная мойка кузова.'
             },
         ],
         toggle: [
-            {
-                name: 'Stiklų Poliravimas',
-                nameRu: 'Полировка стекол',
-                url: '/images/windowPolishing.png',
-                price: '30.00'
-            },
-            {
-                name: 'Nano-keraminę dangą',
-                nameRu: 'Нано-керамическое покрытие',
-                url: '/images/wax.png',
-                price: '150.00'
-            }
+            // {
+            //     name: 'Stiklų Poliravimas',
+            //     nameRu: 'Полировка стекол',
+            //     url: '/images/windowPolishing.png',
+            //     price: '30.00'
+            // }
         ]
-    }
+    },
+    // {
+    //     name: 'exterior',
+    //     span: 'Kėbulo plovimas',
+    //     spanRu: 'Мойка кузова',
+    //     options: [
+    //         {
+    //             name: 'Express plovimas',
+    //             nameRu: 'Экспресс мойка',
+    //             url: '/images/carWashing.png',
+    //             price: '15.00',
+    //             description: 'Greitas kėbulo plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.',
+    //             descriptionRu: 'Быстрая мойка кузова, устраняющая основные загрязнения. Отличный выбор, когда нужен быстрый результат.'
+    //         },
+    //         {
+    //             name: 'Detalus plovimas',
+    //             nameRu: 'Детальная мойка',
+    //             url: '/images/carWashing.png',
+    //             price: '30.00',
+    //             description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
+    //             descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
+    //         },
+    //     ],
+    //     toggle: [
+    //         // {
+    //         //     name: 'Kėbulo vaškavimas',
+    //         //     nameRu: 'Вощение кузова',
+    //         //     url: '/images/carWaxing.png',
+    //         //     price: '13.00'
+    //         // }
+    //     ]
+    // },
 ]
 
 export const moreToggles = [
+    {
+        name: 'Detalus kebulo plovimas',
+        nameRu: 'Детальная мойка кузова',
+        url: '/images/carWashing.png',
+        price: '30.00',
+        // description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
+        // descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
+    },
+    {
+        name: 'Nano-keraminę dangą',
+        nameRu: 'Нано-керамическое покрытие',
+        url: '/images/wax.png',
+        price: '150.00'
+    },
+    {
+        name: 'Kėbulo vaškavimas',
+        nameRu: 'Вощение кузова',
+        url: '/images/carWaxing.png',
+        price: '13.00'
+    },
+    {
+        name: 'Padangų vaškavimas',
+        nameRu: 'Вощение шин',
+        url: '/images/tiresWaxing.jpg',
+        price: '15.00'
+    },
     {
         name: 'Žibintų poliravimas',
         nameRu: 'Полировка фар',
@@ -189,13 +178,7 @@ export const moreToggles = [
         nameRu: 'Гидрофобное покрытие для окон',
         url: '/images/windowsAnti.png',
         price: '14.00'
-    },
-    {
-        name: 'Padangų vaškavimas',
-        nameRu: 'Вощение шин',
-        url: '/images/tiresWaxing.jpg',
-        price: '15.00'
-    },
+    }
 ]
 
 //CAR TYPES 
@@ -257,13 +240,5 @@ export const carTypes = [
             <path d="M 76.2 59.77 c -0.271 0 -0.521 -0.109 -0.71 -0.3 c -0.19 -0.189 -0.301 -0.439 -0.301 -0.7 c 0 -0.27 0.11 -0.529 0.301 -0.71 c 0.369 -0.37 1.04 -0.37 1.409 0 c 0.19 0.19 0.29 0.44 0.29 0.71 c 0 0.261 -0.1 0.511 -0.29 0.7 c -0.09 0.1 -0.199 0.17 -0.319 0.22 C 76.46 59.74 76.33 59.77 76.2 59.77 z" transform=" matrix(1 0 0 1 0 0) " strokeLinecap="round" />
             <path d="M 19.66 59.77 c -0.27 0 -0.52 -0.109 -0.71 -0.3 c -0.19 -0.18 -0.29 -0.43 -0.29 -0.7 c 0 -0.13 0.03 -0.26 0.08 -0.39 c 0.05 -0.12 0.12 -0.23 0.21 -0.32 c 0.37 -0.37 1.04 -0.37 1.42 0 c 0.09 0.09 0.16 0.2 0.21 0.32 c 0.05 0.13 0.08 0.26 0.08 0.39 s -0.03 0.261 -0.08 0.38 c -0.05 0.12 -0.12 0.23 -0.21 0.32 C 20.18 59.66 19.93 59.77 19.66 59.77 z" transform=" matrix(1 0 0 1 0 0) " strokeLinecap="round" />
         </g>
-    </svg>,
-    // <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="80" height="68" version="1.1" viewBox="0 0 512 512" xmlSpace="preserve">
-    //     <g transform="scale(-1, 1)" transform-origin="256 256">
-    //         <path d="M119.467,298.667c-37.641,0-68.267,30.626-68.267,68.267c0,37.641,30.626,68.267,68.267,68.267    c37.641,0,68.267-30.626,68.267-68.267C187.733,329.293,157.107,298.667,119.467,298.667z M119.467,418.133    c-28.237,0-51.2-22.963-51.2-51.2c0-28.237,22.963-51.2,51.2-51.2s51.2,22.963,51.2,51.2    C170.667,395.17,147.703,418.133,119.467,418.133z" />
-    //         <path d="M392.533,298.667c-37.641,0-68.267,30.626-68.267,68.267c0,37.641,30.626,68.267,68.267,68.267    c37.641,0,68.267-30.626,68.267-68.267C460.8,329.293,430.174,298.667,392.533,298.667z M392.533,418.133    c-28.237,0-51.2-22.963-51.2-51.2c0-28.237,22.963-51.2,51.2-51.2c28.237,0,51.2,22.963,51.2,51.2    C443.733,395.17,420.77,418.133,392.533,418.133z" />
-    //         <path d="M503.467,128H262.153l-15.121-45.363c-1.169-3.49-4.42-5.837-8.098-5.837H76.8c-4.71,0-8.533,3.814-8.533,8.533v34.133    c0,4.719,3.823,8.533,8.533,8.533h130.381l49.254,147.763c1.186,3.55,4.497,5.837,8.098,5.837c0.657,0,1.331-0.077,1.997-0.23    l213.333-51.2c2.449-0.589,4.514-2.236,5.641-4.48l25.6-51.2c0.589-1.186,0.896-2.5,0.896-3.823v-34.133    C512,131.814,508.177,128,503.467,128z M494.933,168.653l-22.921,45.85l-201.856,48.444L221.431,116.77    c-1.169-3.49-4.42-5.837-8.098-5.837h-128V93.867h147.448l15.121,45.363c1.161,3.49,4.42,5.837,8.098,5.837h238.933V168.653z" />
-    //         <path d="M331.861,294.767c-1.741-3.388-5.521-5.239-9.267-4.463l-77.824,15.565l-48.896-154.837    c-1.126-3.55-4.412-5.965-8.141-5.965H102.4c-3.063,0-5.888,1.638-7.407,4.301l-32.41,56.713L6.187,222.191    C2.526,223.241,0,226.594,0,230.4v102.4c0,3.447,2.082,6.571,5.265,7.885l20.599,8.533c2.261,0.93,4.796,0.862,6.989-0.196    c2.193-1.067,3.823-3.021,4.489-5.359c10.334-36.548,44.109-62.063,82.125-62.063c44.467,0,81.007,33.348,84.983,77.568    c0.401,4.437,4.122,7.765,8.491,7.765c0.137,0,0.265,0,0.393,0h85.333c2.287,0,4.471-0.913,6.067-2.543    c1.604-1.613,2.492-3.814,2.466-6.101c-0.299-23.347,12.143-43.358,22.895-53.385    C332.877,302.302,333.602,298.163,331.861,294.767z M162.133,162.133h19.345l13.474,42.667h-32.819V162.133z M107.349,162.133    h37.717V204.8H82.97L107.349,162.133z M290.475,349.867h-70.016c-8.141-49.169-50.27-85.333-100.992-85.333    c-42.402,0-80.41,26.47-95.514,65.417l-6.886-2.85v-54.033H25.6c4.71,0,8.533-3.814,8.533-8.533S30.31,256,25.6,256h-8.533    v-19.166l52.412-14.967h130.867l30.455,96.435c1.314,4.156,5.555,6.699,9.813,5.803l62.566-12.518    C296.781,322.287,291.789,335.343,290.475,349.867z" />
-    //     </g>
-    // </svg>
+    </svg>
 ]

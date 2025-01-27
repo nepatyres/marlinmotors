@@ -23,13 +23,13 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
     }
 
     const toggleAccordion = (index: number) => {
-        setAccordionStates((prevStates: boolean[]) => 
+        setAccordionStates((prevStates: boolean[]) =>
             prevStates.map((state, i) => i === index ? !state : state)
         );
     };
 
     return (
-        <div className="flex w-full flex-col lg:border-r lg:border-r-white/60 overflow-auto">
+        <div className="flex min-h-screen w-full flex-col lg:border-r lg:border-r-white/60 overflow-auto">
             <span className="flex lg:items-end lg:pl-10 justify-center text-[20px] mt-4 lg:text-[30px] font-montserratR uppercase text-white/70">{language ? 'Mūsų paslaugos' : 'Наши услуги'}</span>
             <div className="flex w-full flex-col pb-5 items-center lg:items-end lg:pr-10 mb-10">
                 <div className="flex flex-col pb-4 w-5/6 border-b border-b-white/10 justify-center">z
@@ -44,7 +44,7 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
                 </div>
                 <div className="w-[95%] sm:w-[90%] lg:w-5/6 flex flex-col mb-10">
                     {selection.map((s: any, i: number) => (
-                        <div key={i} ref={(el) => {dropdownRefs.current[i] = el!}} className='relative pb-5 border-b border-b-white/10'>
+                        <div key={i} ref={(el) => { dropdownRefs.current[i] = el! }} className='relative pb-5 border-b border-b-white/10'>
                             <div className="w-full flex justify-between items-center pt-4 cursor-pointer" onClick={() => toggleAccordion(i)}>
                                 <span className="text-white/70 flex font-montserratR text-2xl pt-4 pb-4 justify-center overflow-hidden">{language ? s.span : s.spanRu}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" className='h-10 w-10 flex-shrink-0' viewBox="0 0 24 24" fill="none">
@@ -65,7 +65,7 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
                                     </button>
                                     {selectedStates[i] &&
                                         <div>
-                                            <ul className="shadow-xl w-full px-[4px] z-[100] text-white text-nowrap right-0 xl:right-auto items-center absolute">
+                                            <ul className="shadow-xl w-full px-[4px] z-[100] text-white text-nowrap right-0 xl:right-auto items-center">
                                                 <li onClick={() => handleOptionClick(language ? 'Pasirinkite paslaugą' : 'Выберите услугу', '0', i, -1)} className="cursor-pointer border-b backdrop-blur-lg border-x border-x-white/30 bg-black/50 hover:bg-black/70 border-b-white/30 px-3 py-1.5 text-xl">{language ? 'Pasirinkite paslaugą' : 'Выберите услугу'}</li>
                                                 {s.options.map((option: any, idx: number) => (
                                                     <li key={idx} onClick={() => handleOptionClick(language ? option.name : option.nameRu, option.price, i, idx)} className={`cursor-pointer backdrop-blur-lg bg-black/50 hover:bg-black/70 flex-col ${s.options.length - 1 !== idx ? 'border-b border-b-white/30' : 'rounded-b-sm border-b border-b-white/30'} border-x border-x-white/30 px-3 py-1.5 text-xl`}>
@@ -79,21 +79,45 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
                                             </ul>
                                         </div>
                                     }
-                                    {s.toggle.map((tog: any, idx: number) => (
-                                        <div key={idx} className="flex flex-row items-center mt-2 px-1">
-                                            <div className="relative flex items-center flex-shrink-0">
-                                                <svg onMouseEnter={() => onMouseEnter(i, idx)} onMouseLeave={() => onMouseLeave()} xmlns="http://www.w3.org/2000/svg" className="fill-white/50 w-5 h-5 flex items-center" viewBox="0 0 24 24">
-                                                    <path xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm8 0c0-.17.01-.336.031-.5H12a1 1 0 1 0 0-2H9.877A3.993 3.993 0 0 1 13 8c.902 0 1.731.297 2.4.8a1 1 0 0 0 1.2-1.6 6.001 6.001 0 0 0-9.057 2.3H7a1 1 0 0 0 0 2h.02a6.081 6.081 0 0 0 0 1H7a1 1 0 1 0 0 2h.544a6.001 6.001 0 0 0 9.057 2.3 1 1 0 0 0-1.201-1.6c-.669.503-1.498.8-2.4.8a3.992 3.992 0 0 1-3.123-1.5H12a1 1 0 1 0 0-2H9.031A4.039 4.039 0 0 1 9 12z" />
-                                                </svg>
-                                                {priceCheck === `${i}-${idx}` && <div className="absolute left-0 top-full mt-2 bg-black/80 text-white p-2 rounded z-30">{language ? 'Nuo' : 'От'} €{tog.price}</div>}
-                                            </div>
+                                    {s.toggle.map((tog: any, idx: number) => {
+                                        const isVisible =
+                                            i !== 0 ||
+                                            (
+                                                selectedOption[i] !== s.options[2].name && selectedStates[i] !== s.options[2].nameRu &&
+                                                (
+                                                    selectedOption[i] === s.options[0].name || selectedOption[i] === s.options[0].nameRu ||
+                                                    (selectedOption[i] === s.options[1].name || selectedOption[i] === s.options[1].nameRu
+                                                        ? idx === 0
+                                                        : true)
+                                                )
+                                            );
 
-                                            <div className="flex flex-row items-center flex-1">
-                                                <span className="text-white text-[15px] md:text-[18px] lg:text-[18x] xl:text-[20px] ml-2 pr-2 lg:pr-4 truncate">{language ? tog.name : tog.nameRu}</span>
-                                                <Toggler toggled={!!(toggleStates[i] && toggleStates[i][idx])} onToggle={() => handleToggle(i, idx, parseFloat(tog.price))} />
+
+                                        return isVisible ? (
+                                            <div key={idx} className="flex flex-row items-center mt-2 px-1">
+                                                <div className="relative flex items-center flex-shrink-0">
+                                                    <svg onMouseEnter={() => onMouseEnter(i, idx)} onMouseLeave={() => onMouseLeave()} xmlns="http://www.w3.org/2000/svg" className="fill-white/50 w-5 h-5 flex items-center" viewBox="0 0 24 24" >
+                                                        <path xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm8 0c0-.17.01-.336.031-.5H12a1 1 0 1 0 0-2H9.877A3.993 3.993 0 0 1 13 8c.902 0 1.731.297 2.4.8a1 1 0 0 0 1.2-1.6 6.001 6.001 0 0 0-9.057 2.3H7a1 1 0 0 0 0 2h.02a6.081 6.081 0 0 0 0 1H7a1 1 0 1 0 0 2h.544a6.001 6.001 0 0 0 9.057 2.3 1 1 0 0 0-1.201-1.6c-.669.503-1.498.8-2.4.8a3.992 3.992 0 0 1-3.123-1.5H12a1 1 0 1 0 0-2H9.031A4.039 4.039 0 0 1 9 12z" />
+                                                    </svg>
+                                                    {priceCheck === `${i}-${idx}` && (
+                                                        <div className="absolute left-0 top-full mt-2 bg-black/80 text-white p-2 rounded z-30">
+                                                            {language ? 'Nuo' : 'От'} €{tog.price}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="flex flex-row items-center flex-1">
+                                                    <span className="text-white text-[15px] md:text-[18px] lg:text-[18x] xl:text-[20px] ml-2 pr-2 lg:pr-4 truncate">
+                                                        {language ? tog.name : tog.nameRu}
+                                                    </span>
+                                                    <Toggler
+                                                        toggled={!!(toggleStates[i] && toggleStates[i][idx])}
+                                                        onToggle={() => handleToggle(i, idx, parseFloat(tog.price))}
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ) : null;
+                                    })}
+
                                 </div>
                             )}
                         </div>
@@ -113,21 +137,32 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
                         </div>
                         {accordionStates[3] && (
                             <div className="gap-5 mb-3">
-                                {moreToggles.map((tog: any, idx: number) => (
-                                    <div key={idx} className="flex flex-row items-center mt-2 px-1">
-                                        <div className="relative flex items-center flex-shrink-0">
-                                            <svg onMouseEnter={() => handleMouseEnterMoreToggle(idx)} onMouseLeave={() => onMouseLeaveMoreToggle()} xmlns="http://www.w3.org/2000/svg" className="fill-white/50 w-5 h-5 flex items-center" viewBox="0 0 24 24">
-                                                <path xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm8 0c0-.17.01-.336.031-.5H12a1 1 0 1 0 0-2H9.877A3.993 3.993 0 0 1 13 8c.902 0 1.731.297 2.4.8a1 1 0 0 0 1.2-1.6 6.001 6.001 0 0 0-9.057 2.3H7a1 1 0 0 0 0 2h.02a6.081 6.081 0 0 0 0 1H7a1 1 0 1 0 0 2h.544a6.001 6.001 0 0 0 9.057 2.3 1 1 0 0 0-1.201-1.6c-.669.503-1.498.8-2.4.8a3.992 3.992 0 0 1-3.123-1.5H12a1 1 0 1 0 0-2H9.031A4.039 4.039 0 0 1 9 12z" />
-                                            </svg>
-                                            {priceCheckMoreToggle === `${idx}` && <div className="absolute left-0 top-full mt-2 bg-black/80 text-white p-2 rounded z-30">{language ? 'Nuo' : 'От'} €{tog.price}</div>}
-                                        </div>
+                                {moreToggles.map((tog: any, idx: number) => {
+                                    const isVisible =
+                                        (idx !== 0 || !selectedOption[1] || selectedOption[1] === (language ? 'Pasirinkite paslaugą' : 'Выберите услугу')) &&
+                                        (
+                                            selectedStates[idx] !== 0 ||
+                                            (
+                                                selectedOption && tog[0] ? false : true
+                                            )
+                                        );
 
-                                        <div className="w-full flex flex-row items-center flex-1">
-                                            <span className="text-white text-[17px] md:text-[18px] lg:text-[18x] xl:text-[20px] ml-2 pr-4 truncate">{language ? tog.name : tog.nameRu}</span>
-                                            <Toggler toggled={!!moreToggleStates[idx]} onToggle={() => handleMoreToggle(idx, parseFloat(tog.price))} />
+                                    return isVisible ? (
+                                        <div key={idx} className="flex flex-row items-center mt-2 px-1">
+                                            <div className="relative flex items-center flex-shrink-0">
+                                                <svg onMouseEnter={() => handleMouseEnterMoreToggle(idx)} onMouseLeave={() => onMouseLeaveMoreToggle()} xmlns="http://www.w3.org/2000/svg" className="fill-white/50 w-5 h-5 flex items-center" viewBox="0 0 24 24">
+                                                    <path xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm8 0c0-.17.01-.336.031-.5H12a1 1 0 1 0 0-2H9.877A3.993 3.993 0 0 1 13 8c.902 0 1.731.297 2.4.8a1 1 0 0 0 1.2-1.6 6.001 6.001 0 0 0-9.057 2.3H7a1 1 0 0 0 0 2h.02a6.081 6.081 0 0 0 0 1H7a1 1 0 1 0 0 2h.544a6.001 6.001 0 0 0 9.057 2.3 1 1 0 0 0-1.201-1.6c-.669.503-1.498.8-2.4.8a3.992 3.992 0 0 1-3.123-1.5H12a1 1 0 1 0 0-2H9.031A4.039 4.039 0 0 1 9 12z" />
+                                                </svg>
+                                                {priceCheckMoreToggle === `${idx}` && <div className="absolute left-0 top-full mt-2 bg-black/80 text-white p-2 rounded z-30">{language ? 'Nuo' : 'От'} €{tog.price}</div>}
+                                            </div>
+
+                                            <div className="w-full flex flex-row items-center flex-1">
+                                                <span className="text-white text-[17px] md:text-[18px] lg:text-[18x] xl:text-[20px] ml-2 pr-4 truncate">{language ? tog.name : tog.nameRu}</span>
+                                                <Toggler toggled={!!moreToggleStates[idx]} onToggle={() => handleMoreToggle(idx, parseFloat(tog.price))} />
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ) : null;
+                                })}
                             </div>
                         )}
                     </div>

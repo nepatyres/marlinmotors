@@ -2,7 +2,7 @@ import TimeSlotSelector from "@/components/calendar/TimeSlotSelector";
 import Calendar from "@/components/calendar/TimeSlotSelector";
 import React, { useState, useEffect } from "react";
 
-export default function CalPopup({ language, setCalPopup, setReservPopup, formData, carType, selectedType, services, toggleStates, moreToggleStates, subtotal, promoCode, sum, selectedOption, toggler,selection, moreToggles }: any) {
+export default function CalPopup({ language, setCalPopup, setReservPopup, formData, carType, selectedType, services, toggleStates, moreToggleStates, subtotal, promoCode, sum, selectedOption, toggler,selection, moreToggles,handleRegister }: any) {
     const calCloseBtn = () => {
         setCalPopup(false);
         setReservPopup(false);
@@ -28,7 +28,7 @@ export default function CalPopup({ language, setCalPopup, setReservPopup, formDa
                         {language ? "Pasirinkite data ir laika" : "Выберете дату и время"}
                     </span>
                     <div className="flex flex-col justify-center items-center mx-auto text-monserratR">
-                        <TimeSlotSelector language={language} setCalPopup={setCalPopup} setReservPopup={setReservPopup} formData={formData} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} moreToggleStates={moreToggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} moreToggles={moreToggles}/>
+                        <TimeSlotSelector language={language} setCalPopup={setCalPopup} setReservPopup={setReservPopup} formData={formData} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} moreToggleStates={moreToggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} moreToggles={moreToggles} handleRegister={handleRegister}/>
                     </div>
                 </div>
             </div>

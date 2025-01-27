@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CalPopup from "./calPopup";
-export default function ReservPopup({ language, setReservPopup, carType, selectedType, services, toggleStates, moreToggleStates, subtotal, promoCode, sum, selectedOption, toggler,selection, moreToggles}: any) {
+export default function ReservPopup({ language, setReservPopup, carType, selectedType, services, toggleStates, moreToggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection, moreToggles, handleRegister }: any) {
     const [calPopup, setCalPopup] = useState(false)
     const [formData, setFormData] = useState({
         model: "",
@@ -41,14 +41,14 @@ export default function ReservPopup({ language, setReservPopup, carType, selecte
                     <input type="text" name="plate" value={formData.plate} onChange={handleChange} placeholder={language ? "Automobilio Numeriai" : 'Номера авто'} className="w-60 sm:w-80 h-14 border mb-4 pl-2 border-white/30 focus:outline focus:outline-white/50 focus:outline-2 rounded appearance-none text-base bg-transparent text-white z-10" required />
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder={language ? "Vardas" : 'Имя'} className="w-60 sm:w-80 h-14 border mb-4 pl-2 border-white/30 focus:outline focus:outline-white/50 focus:outline-2 rounded appearance-none text-base bg-transparent text-white z-10" required />
                     <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder={language ? "El. paštas" : 'Эл. почта'} className="w-60 sm:w-80 h-14 border mb-4 pl-2 border-white/30 focus:outline focus:outline-white/50 focus:outline-2 rounded appearance-none text-base bg-transparent text-white z-10" required />
-                    <input type="text" name="number" value={formData.number} onChange={handleChange} placeholder={language ? "Tel. numeris" : 'Тел. номер'} className="w-60 sm:w-80 h-14 border mb-4 pl-2 border-white/30 rounded appearance-none focus:outline focus:outline-white/50 focus:outline-2 text-base bg-transparent text-white z-10" required />
+                    <input type="phone" name="number" value={formData.number} onChange={handleChange} placeholder={language ? "Tel. numeris" : 'Тел. номер'} className="w-60 sm:w-80 h-14 border mb-4 pl-2 border-white/30 rounded appearance-none focus:outline focus:outline-white/50 focus:outline-2 text-base bg-transparent text-white z-10" required />
                     <button onClick={() => calPopupBtn()} disabled={!isFormComplete} className={`w-60 sm:w-80 mt-10 self-start h-10 font-montserratR border-none rounded-md text-base cursor-pointer transition-colors duration-200 mb-10  ${isFormComplete ? "bg-white text-black hover:bg-dot9" : "bg-gray-600 text-gray-300 cursor-not-allowed"}`}>{language ? 'Toliau' : 'Дальше'}</button>
 
                 </div >
             </div>
             {
-            calPopup && 
-            <CalPopup language={language} setCalPopup={setCalPopup} setReservPopup={setReservPopup} formData={formData} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} moreToggleStates={moreToggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} moreToggles={moreToggles}/>}
+                calPopup &&
+                <CalPopup language={language} setCalPopup={setCalPopup} setReservPopup={setReservPopup} formData={formData} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} moreToggleStates={moreToggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} moreToggles={moreToggles} handleRegister={handleRegister} />}
         </div>
     )
 }
