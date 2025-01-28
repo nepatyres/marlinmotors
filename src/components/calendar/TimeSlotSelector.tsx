@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian = false, carType, selectedType, services, toggleStates, moreToggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection, moreToggles }: any) => {
+const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian = false, carType, selectedType, services, toggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection}: any) => {
     const [events, setEvents] = useState([]);
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -154,8 +154,6 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
                 setSelectedSlot(null);
                 localStorage.setItem("triggerRegister", "true");
                 window.location.reload();
-                setCalPopup(false);
-                setReservPopup(false);
             }
         } catch (error) {
             console.error("Error booking slot:", error);
@@ -167,7 +165,7 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, isLithuanian 
     const handleSubmit = async () => {
         try {
             const bookingData = {
-                formData, carType, selectedType, services, toggleStates, moreToggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection, moreToggles
+                formData, carType, selectedType, services, toggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection, selectedDate, selectedSlot
             };
 
             const response = await fetch("/api/booking", {

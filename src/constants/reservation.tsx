@@ -37,7 +37,7 @@ export const selection = [
                 price: '15.00'
             },
             {
-                name: 'Medžiaginių sėdynių cheminis siurbimas',
+                name: 'Cheminis medžiaginių sėdynių valymas',
                 nameRu: 'Химичистка тканевых сидений',
                 url: '/images/seatsWashing.png',
                 price: '30.00'
@@ -55,13 +55,13 @@ export const selection = [
                 price: '20.00'
             },
             {
-                name: 'Grindų dangos cheminis siurbimas',
-                nameRu: 'Химчистка напольного покрытия',
+                name: 'Cheminis kiliminės dangos valymas',
+                nameRu: 'Химчистка ковралина',
                 url: '/images/floorCleaning.png',
                 price: '25.00'
             },
             {
-                name: 'Bagažinės cheminis siurbimas',
+                name: 'Cheminis bagažinės valymas',
                 nameRu: 'Химчистка багажника',
                 url: '/images/trunkCleaning.png',
                 price: '20.00'
@@ -99,85 +99,78 @@ export const selection = [
             },
         ],
         toggle: [
-            // {
-            //     name: 'Stiklų Poliravimas',
-            //     nameRu: 'Полировка стекол',
-            //     url: '/images/windowPolishing.png',
-            //     price: '30.00'
-            // }
+            {
+                name: 'Nano-keraminę dangą',
+                nameRu: 'Нано-керамическое покрытие',
+                url: '/images/wax.png',
+                price: '150.00'
+            }
         ]
     },
-    // {
-    //     name: 'exterior',
-    //     span: 'Kėbulo plovimas',
-    //     spanRu: 'Мойка кузова',
-    //     options: [
-    //         {
-    //             name: 'Express plovimas',
-    //             nameRu: 'Экспресс мойка',
-    //             url: '/images/carWashing.png',
-    //             price: '15.00',
-    //             description: 'Greitas kėbulo plovimas, pašalinantis pagrindinius nešvarumus. Puikus pasirinkimas, kai reikia greito rezultato.',
-    //             descriptionRu: 'Быстрая мойка кузова, устраняющая основные загрязнения. Отличный выбор, когда нужен быстрый результат.'
-    //         },
-    //         {
-    //             name: 'Detalus plovimas',
-    //             nameRu: 'Детальная мойка',
-    //             url: '/images/carWashing.png',
-    //             price: '30.00',
-    //             description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
-    //             descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
-    //         },
-    //     ],
-    //     toggle: [
-    //         // {
-    //         //     name: 'Kėbulo vaškavimas',
-    //         //     nameRu: 'Вощение кузова',
-    //         //     url: '/images/carWaxing.png',
-    //         //     price: '13.00'
-    //         // }
-    //     ]
-    // },
-]
-
-export const moreToggles = [
     {
-        name: 'Detalus kebulo plovimas',
-        nameRu: 'Детальная мойка кузова',
-        url: '/images/carWashing.png',
-        price: '30.00',
-        // description: 'Kruopštus automobilio išorės plovimas, apimantis giliausią purvo ir apnašų valymą, naudojant specialias priemones. Skirta tiems, kas ieško aukščiausio lygio švaros.',
-        // descriptionRu: 'Тщательная мойка кузова, включающая глубокую очистку от грязи и налета с использованием специальных средств. Предназначена для тех, кто ищет высший уровень чистоты.'
+        name: 'polishing',
+        span: 'Plėvelės klijavimas (konsultacija)',
+        spanRu: 'Клейка пленки (консультация)',
+        options: [
+        ],
+        toggle: [
+            {
+                name: 'Kebulo moldingai',
+                nameRu: 'Молдинги кузова',
+                url: '/images/exteriorFilm.png',
+                price: '30.00',
+            },
+            {
+                name: 'Salono moldingai',
+                nameRu: 'Молдинги салона',
+                url: '/images/interiorFilm.jpg',
+                price: '30.00',
+            },
+            {
+                name: 'Žibintų tamsinimas',
+                nameRu: 'Тонировка фар',
+                url: '/images/ppf.png',
+                price: '30.00',
+            },
+        ]
     },
     {
-        name: 'Nano-keraminę dangą',
-        nameRu: 'Нано-керамическое покрытие',
-        url: '/images/wax.png',
-        price: '150.00'
-    },
-    {
-        name: 'Kėbulo vaškavimas',
-        nameRu: 'Вощение кузова',
-        url: '/images/carWaxing.png',
-        price: '13.00'
-    },
-    {
-        name: 'Padangų vaškavimas',
-        nameRu: 'Вощение шин',
-        url: '/images/tiresWaxing.jpg',
-        price: '15.00'
-    },
-    {
-        name: 'Žibintų poliravimas',
-        nameRu: 'Полировка фар',
-        url: '/images/headlightPolishing.png',
-        price: '13.00'
-    },
-    {
-        name: 'Langų hidrofobinė danga',
-        nameRu: 'Гидрофобное покрытие для окон',
-        url: '/images/windowsAnti.png',
-        price: '14.00'
+        name: 'moreToggles',
+        span: 'Papildomos paslaugos',
+        spanRu: 'Дополнительные услуги',
+        options: [],
+        toggle: [
+            {
+                name: 'Detalus kebulo plovimas',
+                nameRu: 'Детальная мойка кузова',
+                url: '/images/carWashing.png',
+                price: '30.00',
+            },
+            {
+                name: 'Kėbulo vaškavimas',
+                nameRu: 'Восковое нанесение на кузов',
+                url: '/images/carWaxing.png',
+                price: '13.00'
+            },
+            {
+                name: 'Padangų vaškavimas',
+                nameRu: 'Восковое нанесение на шины',
+                url: '/images/tiresWaxing.jpg',
+                price: '15.00'
+            },
+            {
+                name: 'Žibintų poliravimas',
+                nameRu: 'Полировка фар',
+                url: '/images/headlightPolishing.png',
+                price: '13.00'
+            },
+            {
+                name: 'Langų hidrofobinė danga',
+                nameRu: 'Гидрофобное покрытие для окон',
+                url: '/images/windowsAnti.png',
+                price: '14.00'
+            }
+        ]
     }
 ]
 

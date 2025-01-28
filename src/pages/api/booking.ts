@@ -9,14 +9,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             selectedType,
             services,
             toggleStates,
-            moreToggleStates,
             subtotal,
             promoCode,
             sum,
             selectedOption,
             toggler,
             selection,
-            moreToggles,
+            selectedDate,
+            selectedSlot
         } = req.body;
 
         const formattedSum = parseFloat(sum).toFixed(2);
@@ -82,29 +82,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 }
             });
 
-            Object.entries(moreToggleStates).forEach(([toggleIndex, isActive]) => {
-                if (isActive) {
-                    const imageUrl = getAbsoluteImageUrl(moreToggles[+toggleIndex].url);
-                    servicesHTML += `
-                        <div style="display: flex; padding: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 8px;">
-                            <div style="width: 64px; height: 64px; margin-right: 12px;">
-                                <img src="${imageUrl}"
-                                     style="width: 64px; height: 64px; border-radius: 8px; object-fit: cover;"
-                                     alt="${moreToggles[+toggleIndex].name}"/>
-                            </div>
-                            <div style="flex: 1;">
-                                <p style="color: rgba(255, 255, 255, 0.8); font-size: 16px; margin: 0;">
-                                    ${moreToggles[+toggleIndex].name}
-                                </p>
-                                <p style="color: rgba(255, 255, 255, 0.9); font-size: 16px; margin: 4px 0 0 0;">
-                                    €${moreToggles[+toggleIndex].price}
-                                </p>
-                            </div>
-                        </div>
-                    `;
-                }
-            });
-
             return servicesHTML;
         };
 
@@ -117,14 +94,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
         });
 
+        const formatDate = (date: Date) => {
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            const year = date.getFullYear();
+            return `${month}/${day}/${year}`;
+        };
+
         const mailOptions = {
             from: process.env.EMAIL,
             to: process.env.TOEMAIL,
-            subject: `Заказ от ${formData.name}`,
+            subject: `Заказ от ${formData.name}, ${formatDate(new Date(selectedDate))} ${selectedSlot}`,
             html: `
                 <div style="font-family: Arial, sans-serif; line-height: 1.5; color: #333; background-color: #1a1a1a; padding: 20px; border-radius: 8px;">
                     <div style="background-color: #2a2a2a; padding: 20px; border-radius: 8px;">
-                        <h2 style="color: #ffffff; margin-bottom: 20px;">Детали заказа</h2>
+                        <h2 style="color: #ffffff; margin-bottom: 20px;">Детали резервации</h2>
                         <p style="color: #ffffff;"><strong>Модель автомобиля:</strong> <span style="color: #1a73e8;">${formData.model}</span></p>
                         <p style="color: #ffffff;"><strong>Регистрационный номер:</strong> <span style="color: #1a73e8;">${formData.plate}</span></p>
                         <p style="color: #ffffff;"><strong>Имя клиента:</strong> <span style="color: #1a73e8;">${formData.name}</span></p>

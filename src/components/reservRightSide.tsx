@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-export default function ReservRightSide({ language, toggler, services, selection, handleOptionClick, toggleStates, moreToggleStates, moreToggles, handleToggle, handleMoreToggle, setReservPopup, carType, subtotal, sum, promoCode,promoTog, setPromo, setPromoTog, promo, calculatePromoCode, wrongPromo }: any) {
+export default function ReservRightSide({ language, toggler, services, selection, handleOptionClick, toggleStates, handleToggle, setReservPopup, carType, subtotal, sum, promoCode,promoTog, setPromo, setPromoTog, promo, calculatePromoCode, wrongPromo }: any) {
     const formatPrice = (price: number) => {
         return new Intl.NumberFormat('en-US', {
             style: 'decimal',
@@ -68,30 +68,6 @@ export default function ReservRightSide({ language, toggler, services, selection
 
                 </ul>
             ))}
-            {Object.entries(moreToggleStates).some(([_, isActive]) => isActive) && (
-                <ul className="w-full flex flex-col justify-center sm:justify-start items-center sm:items-start">
-                    {Object.entries(moreToggleStates).map(([toggleIndex, isActive]) =>
-                        isActive ? (
-                            <li key={toggleIndex} className="w-full flex flex-row border-b border-b-white/10 justify-between py-2">
-                                <div className="w-16 h-16 flex my-auto">
-                                    <div style={{ backgroundImage: `url(${moreToggles[+toggleIndex].url})` }} className="flex w-16 h-16 bg-cover bg-center rounded-lg brightness-[70%]" />
-                                </div>
-                                <div className="flex flex-row justify-start text-white text-2xl pl-3 pr-3">
-                                    <div className="w-full flex flex-col">
-                                        <span className="text-white/80 text-xl">{language ? moreToggles[+toggleIndex].name : moreToggles[+toggleIndex].nameRu}</span>
-                                        <span className="flex text-white/90 items-end text-xl mr-1">€{moreToggles[+toggleIndex].price}</span>
-                                    </div>
-                                </div>
-                                <div className="flex items-start justify-between flex-col pl-auto ml-auto">
-                                    <svg onClick={() => handleMoreToggle(+toggleIndex, -Number(moreToggles[+toggleIndex].price))} className="flex justify-end fill-white h-7 w-7 cursor-pointer rounded-full ml-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" version="1.1">
-                                        <path d="M777.856 280.192l-33.92-33.952-231.872 231.872-231.84-231.872-33.984 33.888 231.872 231.904-231.84 231.84 33.888 33.984 231.904-231.904 231.84 231.872 33.952-33.888-231.872-231.904z" />
-                                    </svg>
-                                </div>
-                            </li>
-                        ) : null
-                    )}
-                </ul>
-            )}
             <div className="w-full flex flex-col font-montserratR">
                 <div className="w-full justify-between flex flex-row gap-5 mt-10">
                     <span className="text-lg text-white/70">{language ? 'Tarpinė suma' : 'Промежуточная сумма'}</span>

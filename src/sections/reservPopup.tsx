@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CalPopup from "./calPopup";
-export default function ReservPopup({ language, setReservPopup, carType, selectedType, services, toggleStates, moreToggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection, moreToggles, handleRegister }: any) {
+export default function ReservPopup({ language, setReservPopup, carType, selectedType, services, toggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection, handleRegister }: any) {
     const [calPopup, setCalPopup] = useState(false)
     const [formData, setFormData] = useState({
         model: "",
@@ -48,7 +48,7 @@ export default function ReservPopup({ language, setReservPopup, carType, selecte
             </div>
             {
                 calPopup &&
-                <CalPopup language={language} setCalPopup={setCalPopup} setReservPopup={setReservPopup} formData={formData} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} moreToggleStates={moreToggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} moreToggles={moreToggles} handleRegister={handleRegister} />}
+                <CalPopup language={language} setCalPopup={setCalPopup} setReservPopup={setReservPopup} formData={formData} carType={carType} selectedType={selectedType} services={services} toggleStates={toggleStates} subtotal={subtotal} promoCode={promoCode} sum={sum} selectedOption={selectedOption} toggler={toggler} selection={selection} handleRegister={handleRegister} />}
         </div>
     )
 }
