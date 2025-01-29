@@ -10,7 +10,7 @@ function AboutUs({ language }: any) {
     useLayoutEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
 
-        refs.current.forEach((about, i) => {
+        refs.current.forEach((about, i) =>  {
             if (about) {
                 const aboutTimeline = gsap.timeline({
                     scrollTrigger: {
