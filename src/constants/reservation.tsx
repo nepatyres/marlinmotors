@@ -168,13 +168,13 @@ export const selection = [
                 name: 'Žibintų poliravimas',
                 nameRu: 'Полировка фар',
                 url: '/images/headlightPolishing.png',
-                price: '13.00'
+                price: '35.00'
             },
             {
                 name: 'Langų hidrofobinė danga',
                 nameRu: 'Гидрофобное покрытие для окон',
                 url: '/images/windowsAnti.png',
-                price: '14.00'
+                price: '45.00'
             }
         ]
     }
