@@ -19,7 +19,7 @@ export default function Services({ language }: any) {
                         start: 'top+100px bottom',
                         end: '+=550px',
                         scrub: true,
-                        markers: true
+                        // markers: true
                     }
                 });
 

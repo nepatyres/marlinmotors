@@ -141,8 +141,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     <div style="background-color: #2a2a2a; padding: 20px; border-radius: 8px;">
                         
                         <div style="margin-top: 20px;">
-                            <h2 style="color: #ffffff;">Dėkojame už Jūsų rezervaciją!</h2>
-                            <h3 style="color: #ffffff;"><strong>Jūsų rezervacijos data ir laikas</strong> ${formatDate(new Date(selectedDate))} ${selectedSlot}</h3>
+                            <h2 style="color: #ffffff;"><strong>Jūsų rezervacijos data ir laikas</strong> ${formatDate(new Date(selectedDate))} ${selectedSlot}</h2>
                         </div>
         
                         <div style="margin-top: 20px;">
