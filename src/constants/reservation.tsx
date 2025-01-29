@@ -8,7 +8,7 @@ export const selection = [
                 name: 'Sausas valymas',
                 nameRu: 'Сухая чистка',
                 url: '/images/carCleaning.png',
-                price: '35.00',
+                price: '45.00',
                 description: 'Salono paviršių valymas, pašalinant dulkes, trupinius ir smulkius nešvarumus. Greitas ir paprastas būdas atnaujinti automobilio vidų. Į paslaugą įeina express kėbulo plovimas.',
                 descriptionRu: 'Чистка поверхностей салона, удаление пыли, крошек и мелких загрязнений. Быстрый и простой способ обновить интерьер автомобиля. В услугу входит экспресс-мойка кузова.'
             },
@@ -25,7 +25,7 @@ export const selection = [
                 nameRu: 'Детальная химчистка',
                 url: '/images/carCleaning.png',
                 price: '140.00',
-                description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą. Į paslaugą įeina express kėbulo plovimas.',
+                description: 'Viso salono valymas, įskaitant sunkiai pasiekiamas vietas. Apima giluminį dėmių, įsisenėjusių nešvarumų ir kvapų šalinimą bei plastikų ir tekstilės atnaujinimą. Į paslaugą įeina detalus kėbulo plovimas.',
                 descriptionRu: 'Полная чистка салона, включая труднодоступные места. Включает глубокое удаление пятен, застарелых загрязнений и запахов, а также обновление пластиковых и текстильных элементов. В услугу входит экспресс-мойка кузова.'
             },
         ],
@@ -34,7 +34,7 @@ export const selection = [
                 name: 'Lubų valymas',
                 nameRu: 'Чистка потолка',
                 url: '/images/ceilingWash.png',
-                price: '15.00'
+                price: '25.00'
             },
             {
                 name: 'Cheminis medžiaginių sėdynių valymas',
@@ -52,13 +52,13 @@ export const selection = [
                 name: 'Diržų garinis valymas',
                 nameRu: 'Паровая чистка ремней',
                 url: '/images/seatsCleaning.png',
-                price: '20.00'
+                price: '10.00'
             },
             {
                 name: 'Cheminis kiliminės dangos valymas',
                 nameRu: 'Химчистка ковралина',
                 url: '/images/floorCleaning.png',
-                price: '25.00'
+                price: '45.00'
             },
             {
                 name: 'Cheminis bagažinės valymas',
@@ -104,33 +104,45 @@ export const selection = [
                 nameRu: 'Нано-керамическое покрытие',
                 url: '/images/wax.png',
                 price: '150.00'
+            },
+            {
+                name: 'Kėbulo vaškavimas',
+                nameRu: 'Восковое нанесение на кузов',
+                url: '/images/carWaxing.png',
+                price: '13.00'
             }
         ]
     },
     {
-        name: 'polishing',
+        name: 'ppf',
         span: 'Plėvelės klijavimas (konsultacija)',
         spanRu: 'Клейка пленки (консультация)',
         options: [
         ],
         toggle: [
             {
-                name: 'Kebulo moldingai',
-                nameRu: 'Молдинги кузова',
+                name: 'Shadowline',
+                nameRu: 'Shadowline',
                 url: '/images/exteriorFilm.png',
-                price: '30.00',
+                price: '0.00',
             },
             {
-                name: 'Salono moldingai',
-                nameRu: 'Молдинги салона',
+                name: 'Salono apdaila',
+                nameRu: 'Отделка салона',
                 url: '/images/interiorFilm.jpg',
-                price: '30.00',
+                price: '0.00',
+            },
+            {
+                name: 'Kitos kėbulo dalys',
+                nameRu: 'Другие кузовные детали',
+                url: '/images/interiorFilm.jpg',
+                price: '0.00',
             },
             {
                 name: 'Žibintų tamsinimas',
                 nameRu: 'Тонировка фар',
                 url: '/images/ppf.png',
-                price: '30.00',
+                price: '0.00',
             },
         ]
     },
@@ -145,12 +157,6 @@ export const selection = [
                 nameRu: 'Детальная мойка кузова',
                 url: '/images/carWashing.png',
                 price: '30.00',
-            },
-            {
-                name: 'Kėbulo vaškavimas',
-                nameRu: 'Восковое нанесение на кузов',
-                url: '/images/carWaxing.png',
-                price: '13.00'
             },
             {
                 name: 'Padangų vaškavimas',

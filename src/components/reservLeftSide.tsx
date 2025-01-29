@@ -84,14 +84,14 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
                                             );
                                         return isVisible && secondIsVisible ? (
                                             <div key={idx} className="flex flex-row items-center mt-2 px-1">
-                                                <div className="relative flex items-center flex-shrink-0">
+                                                {i !== 2 &&<div className="relative flex items-center flex-shrink-0">
                                                     <svg onMouseEnter={() => onMouseEnter(i, idx)} onMouseLeave={() => onMouseLeave()} xmlns="http://www.w3.org/2000/svg" className="fill-white/50 w-5 h-5 flex items-center" viewBox="0 0 24 24" >
                                                         <path xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" d="M1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12zm8 0c0-.17.01-.336.031-.5H12a1 1 0 1 0 0-2H9.877A3.993 3.993 0 0 1 13 8c.902 0 1.731.297 2.4.8a1 1 0 0 0 1.2-1.6 6.001 6.001 0 0 0-9.057 2.3H7a1 1 0 0 0 0 2h.02a6.081 6.081 0 0 0 0 1H7a1 1 0 1 0 0 2h.544a6.001 6.001 0 0 0 9.057 2.3 1 1 0 0 0-1.201-1.6c-.669.503-1.498.8-2.4.8a3.992 3.992 0 0 1-3.123-1.5H12a1 1 0 1 0 0-2H9.031A4.039 4.039 0 0 1 9 12z" />
                                                     </svg>
                                                     {priceCheck === `${i}-${idx}` && (
                                                         <div className="absolute left-0 top-full mt-2 bg-black/80 text-white p-2 rounded z-30">{language ? 'Nuo' : 'От'} €{tog.price}</div>
                                                     )}
-                                                </div>
+                                                </div>}
                                                 <div className="flex flex-row items-center flex-1">
                                                     <span className="text-white text-[15px] md:text-[18px] lg:text-[18x] xl:text-[20px] ml-2 pr-2 lg:pr-4 truncate">{language ? tog.name : tog.nameRu}</span>
                                                     <Toggler toggled={!!(toggleStates[i] && toggleStates[i][idx])} onToggle={() => handleToggle(i, idx, parseFloat(tog.price))} />

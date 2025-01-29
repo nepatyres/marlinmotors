@@ -30,8 +30,8 @@ export const services = [
         url: '/images/wax.png'
     },
     {
-        front: 'Apsauginės PPF plėvelės',
-        frontRu: 'Оклейка PPF пленкой',
+        front: 'Plėvelės klijavimas',
+        frontRu: 'Клейка пленки',
         url: '/images/ppf.png'
     },
     {

@@ -18,7 +18,11 @@ export default function ReservPopup({ language, setReservPopup, carType, selecte
         setCalPopup(true);
     }
 
-    const isFormComplete = Object.values(formData).every((value) => value.trim() !== "");
+    const isValidEmail = (email: string) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    const isFormComplete = Object.values(formData).every((value) => value.trim() !== "") && isValidEmail(formData.email);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

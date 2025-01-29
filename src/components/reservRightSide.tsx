@@ -91,7 +91,7 @@ export default function ReservRightSide({ language, toggler, services, selection
                 <button onClick={reservBtn} className={`w-full flex justify-center items-center px-3 py-1.5 rounded-md font-montserratR ${sum > 0 ? 'bg-white text-black hover:bg-dot9' : 'bg-gray-600 text-gray-300 cursor-not-allowed'}`}>{language ? 'Rezervuoti' : 'Резервация'}</button>
             </div>
             <div className="w-full justify-between items-center flex flex-row gap-5 cursor-pointer" onClick={() => promoTogBtn()}>
-                <span className="text-lg text-white/70 w-full">{language ? 'Turi nuolaidos kodą?' : 'Есть промокод?'} <span className="text-white/30">{language ? '(neprivaloma)' : '(необязательно)'}</span></span>
+                <span className="text-lg text-white/70 w-full">{language ? 'Turite nuolaidos kodą?' : 'У вас есть промокод?'} <span className="text-white/30">{language ? '(neprivaloma)' : '(необязательно)'}</span></span>
                 {!promoTog && <svg viewBox="0 0 24 24" className="fill-white h-6 w-6" focusable="false" aria-hidden="true"><path d="M2.859 7.475a.75.75 0 0 1 1.06 0l7.55 7.55a.75.75 0 0 0 1.06 0l7.551-7.55a.75.75 0 1 1 1.061 1.06l-7.55 7.55a2.25 2.25 0 0 1-3.182 0l-7.55-7.55a.75.75 0 0 1 0-1.06"></path></svg>}
                 {promoTog && <svg viewBox="0 0 24 24" className="fill-white h-6 w-6" focusable="false" aria-hidden="true"><path d="M2.64 15.994c0-.192.073-.384.219-.53l7.55-7.55a2.25 2.25 0 0 1 3.181 0l7.551 7.55a.75.75 0 1 1-1.06 1.06l-7.551-7.55a.75.75 0 0 0-1.06 0l-7.55 7.55a.75.75 0 0 1-1.28-.53"></path></svg>}
             </div>
