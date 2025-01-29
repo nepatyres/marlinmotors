@@ -1,34 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-interface Translations {
-    lt: LanguageStrings;
-    ru: LanguageStrings;
-}
-
-interface LanguageStrings {
-    booking: string;
-    submitting: string;
-    bookingConfirmed: string;
-    bookingFailed: string;
-    errorOccurred: string;
-    months: { [key: number]: string };
-    weekdays: { [key: number]: string };
-}
-
-const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, carType, selectedType, services, toggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection }: any) => {
+const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, carType, selectedType, services, toggleStates, subtotal, promoCode, sum, selectedOption, toggler, selection}: any) => {
     const [events, setEvents] = useState([]);
     const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    useEffect(() => {
-        console.log('Current language:', language);
-    }, [language]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const translations = {
         lt: {
-            booking: "Rezervuoti",
+            booking: "Užsakyti",
             submitting: "Vykdoma...",
+            loading: "Kraunama...",
             bookingConfirmed: "Rezervacija patvirtinta!",
             bookingFailed: "Nepavyko rezervuoti laiko. Bandykite dar kartą.",
             errorOccurred: "Įvyko klaida. Bandykite dar kartą.",
@@ -44,20 +27,22 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
         ru: {
             booking: "Забронировать",
             submitting: "Обработка...",
+            loading: "Загрузка...",
             bookingConfirmed: "Бронирование подтверждено!",
             bookingFailed: "Не удалось забронировать. Попробуйте еще раз.",
             errorOccurred: "Произошла ошибка. Попробуйте еще раз.",
             months: {
-                0: 'января', 1: 'февраля', 2: 'марта', 3: 'апреля', 4: 'мая', 5: 'июня',
+                0: 'января', 1: 'февраля', 2: 'марта', 3: 'апреля', 4: 'мая', 5: 'июня', 
                 6: 'июля', 7: 'августа', 8: 'сентября', 9: 'октября', 10: 'ноября', 11: 'декабря'
             },
             weekdays: {
-                0: 'воскресенье', 1: 'понедельник', 2: 'вторник', 3: 'среда',
+                0: 'воскресенье', 1: 'понедельник', 2: 'вторник', 3: 'среда', 
                 4: 'четверг', 5: 'пятница', 6: 'суббота'
             }
         },
     };
 
+    const t = language ? translations.lt : translations.ru;
 
     const timeSlots = [
         { start: '10:00', end: '11:00', value: '10:00' },
@@ -66,55 +51,28 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
     ];
 
     useEffect(() => {
-        const now = new Date();
-        if (now.getHours() >= 12) {
-            const nextDay = new Date(now);
-            nextDay.setDate(now.getDate() + 1);
-            setSelectedDate(nextDay);
-        }
+        const initializeCalendar = async () => {
+            setIsLoading(true);
+            try {
+                const response = await fetch("/api/google-calendar");
+                const data = await response.json();
+                setEvents(data);
+            } catch (error) {
+                console.error("Failed to fetch events:", error);
+            } finally {
+                setIsLoading(false);
+            }
 
-        fetchEvents();
+            const now = new Date();
+            if (now.getHours() >= 12) {
+                const nextDay = new Date(now);
+                nextDay.setDate(now.getDate() + 1);
+                setSelectedDate(nextDay);
+            }
+        };
+
+        initializeCalendar();
     }, []);
-
-    const fetchEvents = async () => {
-        try {
-            const response = await fetch("/api/google-calendar");
-            const data = await response.json();
-            setEvents(data);
-        } catch (error) {
-            console.error("Failed to fetch events:", error);
-        }
-    };
-
-    const getCurrentLanguage = () => {
-        // Check if language is boolean (for backward compatibility)
-        if (typeof language === 'boolean') {
-            return language ? 'lt' : 'ru';
-        }
-        // Check if language is string
-        if (typeof language === 'string') {
-            return language.toLowerCase() === 'lt' ? 'lt' : 'ru';
-        }
-        // Default to Russian if language is undefined or invalid
-        return 'ru';
-    };
-
-    const t = translations[getCurrentLanguage()];
-
-    const formatDate = (date: Date) => {
-        const day = date.getDate();
-        const monthIndex = date.getMonth() as keyof typeof translations.lt.months;
-        const weekdayIndex = date.getDay() as keyof typeof translations.lt.weekdays;
-        
-        const month = t.months[monthIndex];
-        const weekday = t.weekdays[weekdayIndex];
-        
-        if (language === 'lt') {
-            return `${weekday}, ${month} ${day} d.`;
-        } else {
-            return `${weekday}, ${day} ${month}`;
-        }
-    };
 
     const isTimeSlotBooked = (timeSlot: string) => {
         const [hours] = timeSlot.split(':');
@@ -153,6 +111,20 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
         }
     };
 
+    const formatDate = (date: Date) => {
+        if (language) {
+            const day = date.getDate();
+            const month = (t.months as Record<number, string>)[date.getMonth()];
+            const weekday = (t.weekdays as Record<number, string>)[date.getDay()];
+            return `${weekday}, ${month} ${day} d.`;
+        }
+        return date.toLocaleDateString('ru-RU', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+        });
+    };
+
     const isMaxDateReached = () => {
         const maxDate = new Date();
         maxDate.setDate(maxDate.getDate() + 13);
@@ -180,9 +152,8 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
                     summary: "User Booking",
                 }),
             });
-            
+            handleSubmit();
             if (response.ok) {
-                await handleSubmit();
                 const updatedEvents = await response.json();
                 setEvents(updatedEvents);
                 setSelectedSlot(null);
@@ -200,8 +171,7 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
         try {
             const bookingData = {
                 formData, carType, selectedType, services, toggleStates, subtotal, 
-                promoCode, sum, selectedOption, toggler, selection, 
-                selectedDate, selectedSlot
+                promoCode, sum, selectedOption, toggler, selection, selectedDate, selectedSlot
             };
 
             const response = await fetch("/api/booking", {
@@ -210,12 +180,18 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
                 body: JSON.stringify(bookingData),
             });
             const result = await response.json();
-            return result;
         } catch (error) {
-            console.error('Failed to submit booking:', error);
-            throw error;
+            console.log('something wrong');
         }
     };
+
+    if (isLoading) {
+        return (
+            <div className="w-full h-full mx-auto bg-black p-4 rounded-lg flex items-center justify-center">
+                <div className="text-white text-lg">{t.loading}</div>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full h-full mx-auto bg-black p-4 rounded-lg">
@@ -225,8 +201,8 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
                     disabled={selectedDate.getTime() <= new Date().setHours(0, 0, 0, 0)} 
                     className={`py-2 px-4 text-[20px] rounded-md transition-colors duration-200 ${
                         selectedDate.getTime() <= new Date().setHours(0, 0, 0, 0) 
-                        ? 'bg-gray-700 text-gray-400 cursor-not-allowed' 
-                        : 'bg-gray-800 text-white hover:bg-gray-700'
+                            ? 'bg-gray-700 text-gray-400 cursor-not-allowed' 
+                            : 'bg-gray-800 text-white hover:bg-gray-700'
                     }`}
                 >
                     {'<'}
@@ -239,8 +215,8 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
                     disabled={isMaxDateReached()} 
                     className={`py-2 px-4 text-[20px] rounded-md transition-colors duration-200 ${
                         isMaxDateReached() 
-                        ? 'bg-gray-700 text-gray-400 cursor-not-allowed' 
-                        : 'bg-gray-800 text-white hover:bg-gray-700'
+                            ? 'bg-gray-700 text-gray-400 cursor-not-allowed' 
+                            : 'bg-gray-800 text-white hover:bg-gray-700'
                     }`}
                 >
                     {'>'}
@@ -263,10 +239,10 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
                             onClick={() => handleSlotSelect(slot.value)} 
                             className={`p-4 text-[22px] rounded-md cursor-pointer transition-colors duration-200 ${
                                 isTimeSlotBooked(slot.value) 
-                                ? 'bg-gray-700 text-gray-400 cursor-not-allowed' 
-                                : selectedSlot === slot.value 
-                                ? 'bg-white/80 text-black' 
-                                : 'bg-gray-800 text-white hover:bg-gray-700'
+                                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed' 
+                                    : selectedSlot === slot.value 
+                                        ? 'bg-white/80 text-black' 
+                                        : 'bg-gray-800 text-white hover:bg-gray-700'
                             }`}
                         >
                             {slot.start}
@@ -279,8 +255,8 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
                 disabled={!selectedSlot || isSubmitting} 
                 className={`w-full mt-16 py-2 px-4 rounded-md font-montserratR transition-colors duration-200 ${
                     selectedSlot && !isSubmitting 
-                    ? 'bg-white text-black hover:bg-dot9' 
-                    : 'bg-gray-600 text-gray-300 cursor-not-allowed'
+                        ? 'bg-white text-black hover:bg-dot9' 
+                        : 'bg-gray-600 text-gray-300 cursor-not-allowed'
                 }`}
             >
                 {isSubmitting ? t.submitting : t.booking}
