@@ -131,7 +131,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             `,
         };
 
-        // Lithuanian email (for client)
         const lithuanianMailOptions = {
             from: process.env.EMAIL,
             to: formData.email,

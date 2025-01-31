@@ -49,7 +49,7 @@ export const aboutUs = [
     {
         span: 'Inovacijos ir aistra',
         spanRu: 'Инновации и страсть',
-        text: 'Naudojame naujausias priemones ir technikos, kad pasiektume geriausią rezultatą.',
+        text: 'Naudojame naujausias priemones ir technikas, kad pasiektume geriausią rezultatą.',
         textRu: 'Мы используем новейшие инструменты и методы для достижения лучших результатов.',
         svg: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" className="w-[60px] h-[60px] sm:w-[80px] sm:h-[70px] fill-white/70 pt-[5px]">
             <path d="M24 0C10.767 0 0 10.767 0 24s10.767 24 24 24 24-10.767 24-24S37.233 0 24 0zm0 47C11.318 47 1 36.682 1 24S11.318 1 24 1s23 10.318 23 23-10.318 23-23 23z" />

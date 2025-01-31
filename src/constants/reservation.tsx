@@ -100,7 +100,7 @@ export const selection = [
         ],
         toggle: [
             {
-                name: 'Nano-keraminę dangą',
+                name: 'Nano-keramikinė dangą',
                 nameRu: 'Нано-керамическое покрытие',
                 url: '/images/wax.png',
                 price: '150.00'
