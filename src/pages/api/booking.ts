@@ -100,7 +100,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             return `${month}/${day}/${year}`;
         };
 
-        // Russian email (for you)
         const russianMailOptions = {
             from: process.env.EMAIL,
             to: process.env.TOEMAIL,
@@ -114,6 +113,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         <p style="color: #ffffff;"><strong>Имя клиента:</strong> <span style="color: #1a73e8;">${formData.name}</span></p>
                         <p style="color: #ffffff;"><strong>Электронная почта:</strong> <span style="color: #1a73e8;">${formData.email}</span></p>
                         <p style="color: #ffffff;"><strong>Телефон:</strong> <span style="color: #1a73e8;">${formData.number}</span></p>
+                        ${formData.address.trim().length > 0 ? `<p style="color: #ffffff;"><strong>Локация автомобиля:</strong> <span style="color: #1a73e8;">${formData.address}</span></p>` : ''}
                         
                         <div style="margin-top: 20px;">
                             <h3 style="color: #ffffff;">Выбранные услуги</h3>
