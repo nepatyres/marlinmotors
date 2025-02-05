@@ -21,7 +21,7 @@ export default function ReservLeftSide({ language, carTypes, accordionStates, se
         <div className="flex min-h-screen w-full flex-col lg:border-r lg:border-r-white/60 overflow-auto">
             <span className="flex lg:items-end lg:pl-10 justify-center text-[20px] mt-4 lg:text-[30px] font-montserratR uppercase text-white/70">{language ? 'Mūsų paslaugos' : 'Наши услуги'}</span>
             <div className="flex w-full flex-col sm:pb-5 items-center lg:items-end lg:pr-10">
-                <div className="flex flex-col pb-4 w-5/6 border-b border-b-white/10 justify-center">z
+                <div className="flex flex-col pb-4 w-5/6 border-b border-b-white/10 justify-center">
                     <span className='text-white/70 flex font-montserratR text-2xl pb-4 pt-4 justify-center'>{language ? 'Kėbulo tipas' : 'Тип кузова'}</span>
                     <div className="w-full grid flex-row gap-3 justify-center pb-6 pt-4 grid-cols-2 sm:flex">
                         {carTypes.map((types: any, i: number) => (
