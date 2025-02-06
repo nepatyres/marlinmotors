@@ -94,7 +94,7 @@ export default function ReservRightSide({ language, toggler, services, selection
                     </div>
                 </div>
                 <div className="w-full flex my-2 mt-5 sm:mt-0 sm:my-0 sm:mb-2">
-                    <button onClick={reservBtn} className={`w-full flex justify-center items-center px-3 py-1.5 rounded-md font-montserratR ${sum > 0 ? 'bg-white text-black hover:bg-dot9' : 'bg-gray-600 text-gray-300 cursor-not-allowed'}`}>{language ? 'Rezervuoti' : 'Резервация'}</button>
+                    <button onClick={reservBtn} className={`w-full flex justify-center items-center px-3 py-1.5 rounded-md font-montserratR ${sum > 0 ? 'bg-white text-black hover:bg-dot9' : 'bg-gdot1 text-gray-300 cursor-not-allowed'}`}>{language ? 'Rezervuoti' : 'Резервация'}</button>
                 </div>
                 <div className="w-full justify-between items-center flex flex-row gap-5 cursor-pointer" onClick={() => promoTogBtn()}>
                     <span className="text-lg text-white/70 w-full">{language ? 'Turite nuolaidos kodą?' : 'У вас есть промокод?'} <span className="text-white/30">{language ? '(neprivaloma)' : '(необязательно)'}</span></span>

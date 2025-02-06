@@ -256,7 +256,7 @@ const TimeSlotSelector = ({ setCalPopup, setReservPopup, formData, language, car
                 className={`w-full mt-16 py-2 px-4 rounded-md font-montserratR transition-colors duration-200 ${
                     selectedSlot && !isSubmitting 
                         ? 'bg-white text-black hover:bg-dot9' 
-                        : 'bg-gray-600 text-gray-300 cursor-not-allowed'
+                        : 'bg-gdot1 text-gray-300 cursor-not-allowed'
                 }`}
             >
                 {isSubmitting ? t.submitting : t.booking}
