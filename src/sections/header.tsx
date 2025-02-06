@@ -24,10 +24,10 @@ export default function Header({ language, setLanguage }: any) {
     return (
         <div className="relative w-full h-screen overflow-hidden">
             <div className='hidden md:block'>
-                <Image src="/images/tiguan.png" alt="Intro Image" layout="fill" objectFit="cover" className="brightness-[25%] custom-bg" loading="eager" />
+                <Image src="/images/tiguan.png" alt="Intro Image" layout="fill" objectFit="cover" className="brightness-[25%] custom-bg" priority />
             </div>
             <div className='block md:hidden'>
-                <Image src="/images/tiguan-small.png" alt="Intro Image" layout="fill" objectFit="cover" className="brightness-[25%] custom-bg" loading="eager" />
+                <Image src="/images/tiguan-small.png" alt="Intro Image" layout="fill" objectFit="cover" className="brightness-[25%] custom-bg" priority />
             </div>
 
             <div className='intro xl:bottom-[5%] absolute inset-0 flex flex-col items-center justify-center'>
